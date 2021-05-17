@@ -1,0 +1,2 @@
+# Press_Agency_System
+The news media or news industry are forms of mass media that focus on delivering  news to the general public or a target public. These include print media  (newspapers, newsmagazines), broadcast news (radio and television), and more  recently the Internet (online newspapers, news blogs, etc.). Online journalism is produced or distributed via the Internet, so we need to develop  a news media web application to collect and distribute online news and blogs to  viewers in one web application rather than many distributed offline newspapers.
