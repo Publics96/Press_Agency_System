@@ -23,31 +23,34 @@ namespace Press_Agency_System
 
 
 
-            if (!roleManager.RoleExists("Admin"))
+            if (!roleManager.RoleExists(Roles.Admin))
             {
                 IdentityRole AdminRole = new IdentityRole();
-                AdminRole.Name = "Admin";
+                AdminRole.Name = Roles.Admin;
                 roleManager.Create(AdminRole);
 
                 ApplicationUser user = new ApplicationUser();
                 user.UserName = "admin";
+                user.FirstName = "Mohamed";
+                user.LastName = "Ahmed";
+                user.Email = "mohamed@gmail.com";
 
                 var flag = userManager.Create(user, "admin1234");
                 if (flag.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "Admin");
+                    userManager.AddToRole(user.Id, Roles.Admin);
                 }
             }
-            if (!roleManager.RoleExists("Editor"))
+            if (!roleManager.RoleExists(Roles.Editor))
             {
                 IdentityRole AdminRole = new IdentityRole();
-                AdminRole.Name = "Editor";
+                AdminRole.Name = Roles.Editor;
                 roleManager.Create(AdminRole);
             }
-            if (!roleManager.RoleExists("Viewer"))
+            if (!roleManager.RoleExists(Roles.Viewer))
             {
                 IdentityRole AdminRole = new IdentityRole();
-                AdminRole.Name = "Viewer";
+                AdminRole.Name = Roles.Viewer;
                 roleManager.Create(AdminRole);
             }
 

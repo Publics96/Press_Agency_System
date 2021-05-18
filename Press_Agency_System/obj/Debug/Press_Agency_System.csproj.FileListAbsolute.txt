@@ -55,3 +55,4 @@ F:\University\Level 4\IA Project With Github\Press_Agency_System\Press_Agency_Sy
 F:\University\Level 4\IA Project With Github\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.pdb
 F:\University\Level 4\IA Project With Github\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.InitialCreate.resources
 F:\University\Level 4\IA Project With Github\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.csproj.GenerateResource.Cache
+F:\University\Level 4\IA Project With Github\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.AddMainTables.resources
