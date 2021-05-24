@@ -20,6 +20,9 @@ namespace Press_Agency_System.Models
         [EmailAddress]
         public string Email { get; set; }
 
+        [Phone]
+        public string Phone { get; set; }
+
         public string PhotoPath { get; set; }
 
     }
