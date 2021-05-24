@@ -25,12 +25,18 @@ namespace Press_Agency_System.Models
 
         public string ImagePath { get; set; }
 
-        public byte State { get; set; }
+        public PostState State { get; set; }
 
         public bool IsActive { get; set; }
 
         public ApplicationUser User { get; set; }
         public string UserId { get; set; }
 
+    }
+    public enum PostState
+    {
+        Waiting = 1,
+        Accepted = 2,
+        Rejected = 3
     }
 }

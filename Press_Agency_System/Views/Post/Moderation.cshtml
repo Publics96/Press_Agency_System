@@ -1,0 +1,48 @@
+﻿@model Press_Agency_System.Models.ModerationViewModel
+@{
+    ViewBag.Title = "Moderation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Moderation</h2>
+<div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>
+                    UserName
+                </th>
+                <th>
+                    PostTitle
+                </th>
+                <th>
+                    PostBody
+                </th>
+                <th>
+                    PostDate
+                </th>
+                <th>
+                    PostType
+                </th>
+                <th>
+                    ImagePath
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var i in Model.posts)
+            {
+                <tr>
+                    <td>@i.User.UserName</td>
+                    <td>@i.PostTitle</td>
+                    <td>@i.PostBody</td>
+                    <td>@i.PostDate</td>
+                    <td>@i.PostType</td>
+                    <td>@i.ImagePath</td>
+                    <td><a>Accept</a><a>Reject</a></td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>

@@ -121,6 +121,15 @@ namespace Press_Agency_System.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult PostModeration()
+        {
+            List<Post> posts = db.Posts.ToList();
+            ModerationViewModel viewModel = new ModerationViewModel();
+            viewModel.posts = posts;
+            return View(viewModel);
+        }
+
         public ActionResult Like(int? id)
         {
             if (id == null)
