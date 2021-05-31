@@ -246,9 +246,13 @@
     <Content Include="Content\dist\js\pages\dashboard2.js" />
     <Content Include="Content\dist\js\pages\dashboard3.js" />
     <Content Include="Content\dist\js\popup.js" />
+    <Content Include="Content\footer-style.css" />
     <Content Include="Content\login-style.css" />
     <Content Include="Content\popup-script.js" />
     <Content Include="Content\popup-styles.css" />
+    <Content Include="Content\searchbar-style.css" />
+    <Content Include="Content\sidebar-js.js" />
+    <Content Include="Content\sidebar-style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
