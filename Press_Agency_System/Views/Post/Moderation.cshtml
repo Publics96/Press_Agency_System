@@ -1,0 +1,42 @@
+﻿@using Press_Agency_System.Models;
+@model  IEnumerable<Post>
+@{
+    ViewBag.Title = "Moderation";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>Moderation</h2>
+<div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>
+                        UserName
+                    </th>
+                    <th>
+                        PostTitle
+                    </th>
+                    <th>
+                        PostDate
+                    </th>
+                    <th>
+                        PostType
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var i in Model)
+                {
+                    <tr>
+                        <td>@i.User.UserName</td>
+                        <td>@i.PostTitle</td>
+                        <td>@i.PostDate</td>
+                        <td>@i.PostType</td>
+                        <td>@Html.ActionLink("Accept", "ModerationAccept", new { id=i.Id })|@Html.ActionLink("Reject", "ModerationReject", new { id=i.Id })</td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+     
+</div>

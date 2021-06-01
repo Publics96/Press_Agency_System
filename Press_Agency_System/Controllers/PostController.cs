@@ -202,5 +202,56 @@ namespace Press_Agency_System.Controllers
             }
             base.Dispose(disposing);
         }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Moderation()
+        {
+            if (User == null)
+            {
+                return RedirectToAction("Login");
+            }
+            List<Post> posts = db.Posts.Include(x => x.User).Where(x => x.State <= PostState.Waiting).ToList();
+
+
+            return View(posts);
+        }
+        [Authorize(Roles = "Admin")]
+        public ActionResult ModerationAccept(int id)
+        {
+            if (User == null)
+            {
+                return RedirectToAction("Login");
+            }
+            Post post = db.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            post.State = PostState.Accepted;
+            db.Entry(post).State = EntityState.Modified;
+            db.SaveChanges();
+
+            //List<Post> posts = db.Posts.Where(y => y.State <= (int)PostState.Waiting).ToList();
+            //ModerationViewModel viewModel = new ModerationViewModel();
+            //viewModel.posts = posts;
+            return RedirectToAction("Moderation");
+        }
+        [Authorize(Roles = "Admin")]
+        public ActionResult ModerationReject(int id)
+        {
+            Post post = db.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            post.State = PostState.Rejected;
+            db.Entry(post).State = EntityState.Modified;
+            db.SaveChanges();
+
+            //List<Post> posts = db.Posts.Where(y => y.State <= (int)PostState.Waiting).ToList();
+            //ModerationViewModel viewModel = new ModerationViewModel();
+            //viewModel.posts = posts;
+            return RedirectToAction("Moderation");
+        }
     }
 }
