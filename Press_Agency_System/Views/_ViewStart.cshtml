@@ -1,3 +1,21 @@
 ﻿@{
     Layout = "~/Views/Shared/_WallLayout.cshtml";
 }
+
+
+@if (this.User.IsInRole("Admin"))
+{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+else if (this.User.IsInRole("Editor"))
+{
+    Layout = "~/Views/Shared/_FactoryLayout.cshtml";
+
+}
+else
+{
+    Layout = "~/Views/Shared/_WallLayout.cshtml";
+
+
+}

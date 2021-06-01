@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Press_Agency_System.Models
 {
@@ -11,11 +12,12 @@ namespace Press_Agency_System.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(200)]
         public string PostTitle { get; set; }
 
         [Required]
-        [MaxLength(3000)]
+        [MaxLength(9000)]
+        [AllowHtml]
         public string PostBody { get; set; }
 
         public DateTime PostDate { get; set; }

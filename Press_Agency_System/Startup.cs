@@ -14,6 +14,47 @@ namespace Press_Agency_System
         {
             ConfigureAuth(app);
             CreationOfDefaultRoles();
+            //AddUsers();
+
+        }
+        public void AddUsers()
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
+            ApplicationUser user = new ApplicationUser();
+            user.UserName = "Viewer";
+            user.FirstName = "Hamada";
+            user.LastName = "Ahmed";
+            user.Email = "mohamed@gmail.com";
+
+            var flag = userManager.Create(user, "Viewer1234");
+            if (flag.Succeeded)
+            {
+                userManager.AddToRole(user.Id, Roles.Viewer);
+            }
+            ApplicationUser user3 = new ApplicationUser();
+            user3.UserName = "Admin2";
+            user3.FirstName = "Hamada";
+            user3.LastName = "Ahmed";
+            user3.Email = "mohamed@gmail.com";
+
+            var flag3 = userManager.Create(user3, "Admin1234");
+            if (flag3.Succeeded)
+            {
+                userManager.AddToRole(user3.Id, Roles.Admin);
+            }
+
+            ApplicationUser user2 = new ApplicationUser();
+            user2.UserName = "Editor";
+            user2.FirstName = "Hamada";
+            user2.LastName = "Ahmed";
+            user2.Email = "mohamed@gmail.com";
+
+            var flag2 = userManager.Create(user2, "Editor1234");
+            if (flag2.Succeeded)
+            {
+                userManager.AddToRole(user2.Id, Roles.Editor);
+            }
+
 
         }
         private void CreationOfDefaultRoles()

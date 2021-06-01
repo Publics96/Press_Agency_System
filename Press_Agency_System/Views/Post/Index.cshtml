@@ -1,64 +1,164 @@
 ﻿@model IEnumerable<Press_Agency_System.Models.Post>
-
+@using Microsoft.AspNet.Identity
+@using Press_Agency_System.Models
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_WallLayout.cshtml";
+    
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostBody)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostBody)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImagePath)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+<input id="userid" style="display:none;" value=@User.Identity.GetUserId()>
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<div class="row" style="padding:40px;">
+    <p>
+        @Html.ActionLink("New Post", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+
+
+    <div style="padding:10px; user-select:none;">
+        <table id="postsTable" class="table table-bordered table-hover" cellspacing="0" style="width:100%;">
+
+
+            <thead>
+                <tr>
+                    <th>Post Title</th>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <th>User</th>
+                    }
+                    <th>Post Category</th>
+                    <th>Post Date</th>
+                    <th>Admin</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+
+
+
+
+        </table>
+    </div>
+</div>
+@section Scripts{
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+    @if (this.User.IsInRole("Admin"))
+    {
+        <script>
+            $(document).ready(function () {
+                $("#postsTable").DataTable(
+                    {
+                        "ajax": {
+                            "url": "/Post/AllPosts",
+                            "type": "GET",
+                            "datatype": "json"
+                        },
+                        "columns": [
+                            {
+                                data: "PostTitle",
+                                render: function (data, type, post) {
+                                    return "<a href='/post/edit/" + post.Id + "'/>" + post.PostTitle + "</a>";
+                                }
+                            },
+                                 { data: "User.UserName" },
+
+
+                            { data: "PostType" },
+                            {
+                                data: "PostDate",
+
+                                type: 'date',
+                                render: function (data, type, post) {
+                                    var javaScriptDate = new Date(parseInt(post.PostDate.substr(6)));
+                                    return javaScriptDate.toLocaleString();
+                                },
+
+                            },
+                            {
+                                data: "State",
+                                render: function (data, type, post) {
+                                    if (post.State == parseInt(@PostState.Waiting.GetHashCode())) {
+                                        return '<p class="label label-warning">' + "Waiting<p>" + '</p>'
+                                    } else if (post.State == parseInt(@PostState.Rejected.GetHashCode())) {
+                                        return '<p class="label label-danger">' + "Rejected" + '</p>';
+                                    }
+                                    else { return '<p class="label label-success">' + "Accepted" + '</p>'; }
+
+                                }
+                            }, {
+                                render: function (data, type, post) {
+                                    return "<a href='/post/edit/" + post.Id + "'/>" + "Edit" + "</a>";
+                                }
+
+                            }
+                        ], "responsive": true,
+                    })
+            });
+        </script>
+    }
+    else
+    {
+        <script>
+
+            $(document).ready(function () {
+                var userid = document.getElementById('userid').value;
+
+                $("#postsTable").DataTable(
+                    {
+                        "ajax": {
+                            "url": "/Post/AllPostsForEditor",
+                            "type": "post",
+                            "datatype": "json",
+                            "data": { "UserId": userid }
+                        },
+                        "columns": [
+                            {
+                                data: "PostTitle",
+                                render: function (data, type, post) {
+                                    return "<a href='/post/edit/" + post.Id + "'/>" + post.PostTitle + "</a>";
+                                }
+                            },
+
+
+
+
+
+                            { data: "PostType" },
+                            {
+                                data: "PostDate",
+
+                                type: 'date',
+                                render: function (data, type, post) {
+                                    var javaScriptDate = new Date(parseInt(post.PostDate.substr(6)));
+                                    return javaScriptDate.toLocaleString();
+                                },
+
+                            },
+                            {
+                                data: "State",
+                                render: function (data, type, post) {
+                                    if (post.State == parseInt(@PostState.Waiting.GetHashCode())) {
+                                        return '<p class="label label-warning">' + "Waiting<p>" + '</p>'
+                                    } else if (post.State == parseInt(@PostState.Rejected.GetHashCode())) {
+                                        return '<p class="label label-danger">' + "Rejected" + '</p>';
+                                    }
+                                    else { return '<p class="label label-success">' + "Accepted" + '</p>'; }
+
+                                }
+                            }, {
+                                render: function (data, type, post) {
+                                    return "<a href='/post/edit/" + post.Id + "'/>" + "Edit" + "</a>";
+                                }
+
+                            }
+                        ], "responsive": true,
+                    })
+            });
+        </script>
+    }
 }
 
-</table>

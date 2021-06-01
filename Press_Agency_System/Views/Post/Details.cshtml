@@ -2,12 +2,158 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+  />
+<script src="~/Scripts/bootstrap.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous" />
 
 <h2>Details</h2>
 
-<div>
+<style>
+       .blog {
+        background: #f9f9f9;
+
+    }
+
+    .blog-item {
+
+        padding: 0px -10px;
+        outline: 1px solid #DCDCDC;
+        margin: 10px 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .blog-content {
+    }
+
+    .blog-img {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+    }
+
+        .blog-img img {
+            height: 450px;
+            width: 100%;
+        }
+
+        .blog-img::after {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-img img {
+            transition: all 0.5s ease;
+        }
+
+        .blog-img:hover img {
+            transform: scale(1.1);
+        }
+
+        .blog-img span {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+
+            color: #fff;
+            font-size: 15px;
+            padding: 8px;
+            border-radius: 12%;
+        }
+
+    .blog .blog-interaction {
+        height: 40px;
+        display: flex;
+        padding: 10px;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+        .blog .blog-interaction .editor-img {
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+        }
+
+        .blog .blog-interaction .editor-data {
+            display: flex;
+            font-family: ui-monospace;
+        }
+
+        .blog .blog-interaction .editor-name {
+            font-size: 21px;
+            font-weight: bold;
+            padding: 5px;
+            font-family: ui-monospace;
+        }
+
+    .blog .reactions {
+        font-size: 19px;
+        padding: 8px;
+    }
+
+        .blog .reactions span {
+            padding: 2px;
+        }
+
+    .blog-text {
+        margin: 5px 0px;
+        padding: 15px 10px 30px;
+    }
+
+        .blog-text span {
+            font-weight: 300;
+            display: block;
+            padding-bottom: 0.5rem;
+        }
+
+        .blog-text h2 {
+            font-family: "Gill Sans", sans-serif;
+            padding: 5px 0px 15px 0px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .blog-text p {
+            font-weight: 300;
+
+            opacity: 0.9;
+            padding-bottom: 1.2rem;
+        }
+        .blog-text .blog-body{
+            font-size: 20px;
+        }
+
+         .text-date {
+            padding:10px;
+            margin: 30px 5px;
+            font-size: 16px;
+        }
+
+        .blog-text a {
+
+            font-size: 1.1rem;
+            text-decoration: none;
+
+            display: inline-block;
+
+            color: #fff;
+            padding: 0.55rem 1.2rem;
+            transition: all 0.5s ease;
+        }
+    </style>
+
+@*<div>
     <h4>Post</h4>
 	<hr />
     <dl class="dl-horizontal">
@@ -60,7 +206,58 @@
         </dd>
 
     </dl>
-</div>
+</div>*@
+<section class="blog">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 blog-item card">
+
+                <div class="blog-img">
+                    <img src="news3.jpg" alt="">
+                    <span><i class="fas fa-eye"></i> 20</span>
+                </div>
+                <div class="blog-interaction">
+                    <div class="editor-data">
+                        <img class="editor-img" src="person1.jpg" width="20px" height="20px" />
+                        <p class="editor-name">Mohamed Ahmed</p>
+                    </div>
+                    <div class="reactions">
+                        <i class="fas fa-thumbs-up"></i>
+                        <span class="numberofreactions">20</span>
+                        <i class="fas fa-thumbs-down"></i>
+                        <span class="numberofreactions">100</span>
+
+                    </div>
+                </div>
+                <span class="text-date"><i class="fas fa-clock"></i> 20 January, 2020</span>
+                <div class="blog-text">
+                    <h2>Rolls-Royce will now build you any car you want, but it will cost millions</h2>
+
+                    <div class="blog-body">
+                        <p>
+                            f you have the money -- and if Rolls-Royce executives like your idea -- the British ultra-luxury carmaker will build you the car of your dreams.
+                            Rolls-Royce now joins a number of other ultra-luxury carmakers, including Bentley and Porsche, that will work with a limited number of wealthy clients to build very expensive customized cars. (Both Bentley and Porsche are owned by the Volkswagen Group, while Rolls-Royce is owned by BMW.)
+                            On Thursday, Rolls-Royce revealed a new program called Rolls-Royce Coachbuild. This department will work with individual clients to help design and build cars specifically for them.
+
+                            The luxury automaker will work on just one of these cars every couple of years, Rolls-Royce executives said. While Rolls-Royce would not say how much the cars will cost, it seems clear they will cost many millions of dollars.
+
+                            "Rolls-Royce Coachbuild clients are intimately and personally involved at each step of the creative and engineering process," said Rolls-Royce CEO Torsten Müller-Ötvös.
+                            The Rolls-Royce Boat Tail comes with a complete picnic set in the back.
+                            The Rolls-Royce Boat Tail comes with a complete picnic set in the back.
+                            Porsche calls its custom car department Sonderwunsch, or "Special Wish" in German. The program, which had previously existed from Porsche's earliest days up until the 1980s, has just recently been restarted. Now Porsche is offering to do fully customized new cars, as well as custom models based on classic Porsches, such as the 356 and early 911s.
+                            Porsche's program had been responsible for introducing such innovations as the rear window wiper, as well as Porsche's first in-car radio on the Porsche 356 sports car.
+                            "Listening to our customers was always an innovation source for our company," said Christian Heck, head of product management for the Porsche program.
+                            Last year, Bentley unveiled the Bacalar, an entirely roofless car, of which 12 will be made, at a cost of $2 million each. In revealing that car, Bentley also announced its own return to "coachbuilding."
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

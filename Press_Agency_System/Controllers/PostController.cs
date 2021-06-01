@@ -11,9 +11,35 @@ using Press_Agency_System.Models;
 
 namespace Press_Agency_System.Controllers
 {
+    [Authorize(Roles = "Admin,Editor")]
     public class PostController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public ActionResult AllUsers()
+        {
+            var posts = db.Users.Include(x => x.Roles).ToList();
+
+            return Json(new { data = posts }, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+        //[Authorize]
+        public ActionResult AllPosts()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var posts = db.Posts.Include(x=> x.User);
+            return Json(new { data = posts }, JsonRequestBehavior.AllowGet);
+
+        }
+        //[Authorize]
+        public ActionResult AllPostsForEditor(string UserId)
+        {
+            var posts = db.Posts.Where(e => e.UserId == UserId).ToList();
+            return Json(new { data = posts }, JsonRequestBehavior.AllowGet);
+
+        }
 
         // GET: /Post/
         public ActionResult Index()
@@ -40,60 +66,92 @@ namespace Press_Agency_System.Controllers
         // GET: /Post/Create
         public ActionResult Create()
         {
-            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName");
+            ViewBag.PostCategories = PostCategories.AllCategories;
             return View();
         }
 
         // POST: /Post/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,PostTitle,PostBody,PostDate,PostType,ImagePath,UserId")] Post post)
+        public ActionResult Create(Post post, HttpPostedFileBase UploadedImage)
         {
+            ViewBag.PostCategories = PostCategories.AllCategories;
             if (ModelState.IsValid)
             {
+                if (UploadedImage != null)
+                {
+                    var path = System.IO.Path.Combine(Server.MapPath("~/Content/Posts Images"), UploadedImage.FileName);
+                    UploadedImage.SaveAs(path);
+                    post.ImagePath = UploadedImage.FileName;
+                }
+                else
+                {
+                    post.ImagePath = "DefaultImageForPost.jpg";
+                }
+
+                post.UserId = User.Identity.GetUserId();
+                post.IsActive = true;
+                post.State = PostState.Waiting;
+
+                post.PostDate = DateTime.Now;
                 db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", post.UserId);
             return View(post);
         }
 
         // GET: /Post/Edit/5
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.PostCategories = PostCategories.AllCategories;
             Post post = db.Posts.Find(id);
             if (post == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", post.UserId);
+
             return View(post);
         }
 
         // POST: /Post/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,PostTitle,PostBody,PostDate,PostType,ImagePath,UserId")] Post post)
+        public ActionResult Edit(Post post, HttpPostedFileBase UploadedImage)
         {
+            ViewBag.PostCategories = PostCategories.AllCategories;
             if (ModelState.IsValid)
             {
+                if (UploadedImage != null)
+                {
+                    var path = System.IO.Path.Combine(Server.MapPath("~/Content/Posts Images"), UploadedImage.FileName);
+                    UploadedImage.SaveAs(path);
+                    post.ImagePath = UploadedImage.FileName;
+                }
+
+
+
+                post.UserId = User.Identity.GetUserId();
+                post.IsActive = true;
+                post.State = 0;
+                post.State = PostState.Waiting;
+                post.PostDate = DateTime.Now;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", post.UserId);
+
             return View(post);
         }
+
 
         // GET: /Post/Delete/5
         public ActionResult Delete(int? id)
@@ -107,28 +165,13 @@ namespace Press_Agency_System.Controllers
             {
                 return HttpNotFound();
             }
-            return View(post);
-        }
-
-        // POST: /Post/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
             return RedirectToAction("Index");
+
         }
 
-        [HttpGet]
-        public ActionResult PostModeration()
-        {
-            List<Post> posts = db.Posts.ToList();
-            ModerationViewModel viewModel = new ModerationViewModel();
-            viewModel.posts = posts;
-            return View(viewModel);
-        }
+ 
 
         public ActionResult Like(int? id)
         {
