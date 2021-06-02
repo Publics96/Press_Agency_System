@@ -365,6 +365,8 @@ namespace Press_Agency_System.Controllers
             }
             base.Dispose(disposing);
         }
+
+
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult Moderation()
@@ -375,9 +377,9 @@ namespace Press_Agency_System.Controllers
             }
             List<Post> posts = db.Posts.Include(x => x.User).Where(x => x.State <= PostState.Waiting).ToList();
 
-
             return View(posts);
         }
+
         [Authorize(Roles = "Admin")]
         public ActionResult ModerationAccept(int id)
         {
@@ -394,11 +396,9 @@ namespace Press_Agency_System.Controllers
             db.Entry(post).State = EntityState.Modified;
             db.SaveChanges();
 
-            //List<Post> posts = db.Posts.Where(y => y.State <= (int)PostState.Waiting).ToList();
-            //ModerationViewModel viewModel = new ModerationViewModel();
-            //viewModel.posts = posts;
             return RedirectToAction("Moderation");
         }
+
         [Authorize(Roles = "Admin")]
         public ActionResult ModerationReject(int id)
         {
@@ -411,9 +411,6 @@ namespace Press_Agency_System.Controllers
             db.Entry(post).State = EntityState.Modified;
             db.SaveChanges();
 
-            //List<Post> posts = db.Posts.Where(y => y.State <= (int)PostState.Waiting).ToList();
-            //ModerationViewModel viewModel = new ModerationViewModel();
-            //viewModel.posts = posts;
             return RedirectToAction("Moderation");
         }
     }
