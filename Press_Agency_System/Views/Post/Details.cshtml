@@ -1,26 +1,24 @@
-﻿@model Press_Agency_System.Models.Post
-
+﻿@model Press_Agency_System.Models.PostDetailsViewModel
+@using Microsoft.AspNet.Identity
+@using Press_Agency_System.Models
 @{
     ViewBag.Title = "Details";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
+    //  Layout = "~/Views/Shared/_WallLayout.cshtml";
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-  />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
 <script src="~/Scripts/bootstrap.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-      crossorigin="anonymous" />
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />*@
 
-<h2>Details</h2>
+
 
 <style>
-       .blog {
+    .blog {
         background: #f9f9f9;
-
     }
 
     .blog-item {
-
         padding: 0px -10px;
         outline: 1px solid #DCDCDC;
         margin: 10px 0px;
@@ -60,15 +58,52 @@
             transform: scale(1.1);
         }
 
-        .blog-img span {
+        .blog-img .span_views {
             position: absolute;
-            top: 10px;
-            right: 10px;
-
+            top: 15px;
+            right: 15px;
             color: #fff;
             font-size: 15px;
-            padding: 8px;
+            padding: 4px 13px;
             border-radius: 12%;
+            z-index: 3;
+            background-color: rgba(0,0,0,0.65);
+        }
+
+        .blog-img .blog-category {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 4px 5px;
+            z-index: 3;
+            font-size: 16px;
+            background-color: #dc3545;
+        }
+
+        .blog-img .save-blog {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 26px;
+            z-index: 3;
+        }
+
+    .save-blog #btn-save-blog {
+        transition: all ease 0.5s;
+    }
+
+        .save-blog #btn-save-blog.active {
+            color: #dc3545;
+        }
+
+        .save-blog #btn-save-blog:hover {
+            color: #dc3545;
+            transform: scale(1.1);
+        }
+
+        .save-blog #btn-save-blog.active:hover {
+            color: black;
+            transform: scale(1.1);
         }
 
     .blog .blog-interaction {
@@ -98,8 +133,8 @@
         }
 
     .blog .reactions {
-        font-size: 19px;
-        padding: 8px;
+        font-size: 21px;
+        padding: 0px;
     }
 
         .blog .reactions span {
@@ -126,139 +161,205 @@
 
         .blog-text p {
             font-weight: 300;
-
             opacity: 0.9;
             padding-bottom: 1.2rem;
         }
-        .blog-text .blog-body{
+
+        .blog-text .blog-body {
             font-size: 20px;
         }
 
-         .text-date {
-            padding:10px;
-            margin: 30px 5px;
-            font-size: 16px;
+    .text-date {
+        padding: 10px;
+        margin: 30px 5px;
+        font-size: 16px;
+    }
+
+    .blog-text a {
+        font-size: 1.1rem;
+        text-decoration: none;
+        display: inline-block;
+        color: #fff;
+        padding: 0.55rem 1.2rem;
+        transition: all 0.5s ease;
+    }
+
+    .reactions #likebtn, .reactions #dislikebtn {
+        transition: all 0.5s ease;
+    }
+
+        .reactions #likebtn.active, .reactions #dislikebtn.active {
+            color: #dc3545;
         }
 
-        .blog-text a {
-
-            font-size: 1.1rem;
-            text-decoration: none;
-
-            display: inline-block;
-
-            color: #fff;
-            padding: 0.55rem 1.2rem;
-            transition: all 0.5s ease;
+        .reactions #likebtn:hover, .reactions #dislikebtn:hover {
+            transform: scale(1.3);
+            color: #dc3545;
         }
-    </style>
 
-@*<div>
-    <h4>Post</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </dt>
+        .reactions #likebtn.active:hover, .reactions #dislikebtn.active:hover {
+            transform: scale(1.3);
+            color: black;
+        }
+</style>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PostTitle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostTitle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostBody)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostBody)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ImagePath)
-        </dd>
-
-    </dl>
-</div>*@
 <section class="blog">
-
-
     <div class="container">
         <div class="row">
             <div class="col-md-12 blog-item card">
 
                 <div class="blog-img">
-                    <img src="news3.jpg" alt="">
-                    <span><i class="fas fa-eye"></i> 20</span>
+                    <img src="~/Content/Posts Images/@Html.DisplayFor(model=>model.Post.ImagePath)" alt="">
+                    <span class="span_views"><i class="fas fa-eye" style="margin-right:5px;"></i><span id="numberofviews">@Model.allInteractions.Count</span> </span>
+                    <span class="badge blog-category">
+                        @Model.Post.PostType
+                </span>
+                <span class="save-blog"><i id="btn-save-blog" class="fas fa-bookmark"></i></span>
+            </div>
+            <div class="blog-interaction">
+                <div class="editor-data">
+                    <img class="editor-img" src="~/Content/Persons Images/@Html.DisplayFor(model=>model.Post.User.PhotoPath)" width="20px" height="20px" />
+                    <p class="editor-name">Mohamed Ahmed</p>
                 </div>
-                <div class="blog-interaction">
-                    <div class="editor-data">
-                        <img class="editor-img" src="person1.jpg" width="20px" height="20px" />
-                        <p class="editor-name">Mohamed Ahmed</p>
-                    </div>
-                    <div class="reactions">
-                        <i class="fas fa-thumbs-up"></i>
-                        <span class="numberofreactions">20</span>
-                        <i class="fas fa-thumbs-down"></i>
-                        <span class="numberofreactions">100</span>
-
-                    </div>
-                </div>
-                <span class="text-date"><i class="fas fa-clock"></i> 20 January, 2020</span>
-                <div class="blog-text">
-                    <h2>Rolls-Royce will now build you any car you want, but it will cost millions</h2>
-
-                    <div class="blog-body">
-                        <p>
-                            f you have the money -- and if Rolls-Royce executives like your idea -- the British ultra-luxury carmaker will build you the car of your dreams.
-                            Rolls-Royce now joins a number of other ultra-luxury carmakers, including Bentley and Porsche, that will work with a limited number of wealthy clients to build very expensive customized cars. (Both Bentley and Porsche are owned by the Volkswagen Group, while Rolls-Royce is owned by BMW.)
-                            On Thursday, Rolls-Royce revealed a new program called Rolls-Royce Coachbuild. This department will work with individual clients to help design and build cars specifically for them.
-
-                            The luxury automaker will work on just one of these cars every couple of years, Rolls-Royce executives said. While Rolls-Royce would not say how much the cars will cost, it seems clear they will cost many millions of dollars.
-
-                            "Rolls-Royce Coachbuild clients are intimately and personally involved at each step of the creative and engineering process," said Rolls-Royce CEO Torsten Müller-Ötvös.
-                            The Rolls-Royce Boat Tail comes with a complete picnic set in the back.
-                            The Rolls-Royce Boat Tail comes with a complete picnic set in the back.
-                            Porsche calls its custom car department Sonderwunsch, or "Special Wish" in German. The program, which had previously existed from Porsche's earliest days up until the 1980s, has just recently been restarted. Now Porsche is offering to do fully customized new cars, as well as custom models based on classic Porsches, such as the 356 and early 911s.
-                            Porsche's program had been responsible for introducing such innovations as the rear window wiper, as well as Porsche's first in-car radio on the Porsche 356 sports car.
-                            "Listening to our customers was always an innovation source for our company," said Christian Heck, head of product management for the Porsche program.
-                            Last year, Bentley unveiled the Bacalar, an entirely roofless car, of which 12 will be made, at a cost of $2 million each. In revealing that car, Bentley also announced its own return to "coachbuilding."
-                        </p>
-                    </div>
+                <div class="reactions">
+                    <i id="likebtn" class="fas fa-thumbs-up"></i>
+                    <span class="numberofreactions" id="numberoflikes">@Model.allInteractions.Where(x => x.Like == 1).Count()</span>
+                    <i id="dislikebtn" class="fas fa-thumbs-down"></i>
+                    <span class="numberofreactions" id="numberofdislikes">@Model.allInteractions.Where(x => x.Like == 2).Count()</span>
 
                 </div>
             </div>
+            <span class="text-date"><i class="fas fa-clock"></i>  @Model.Post.PostDate.ToString("dd MMMM yyyy HH:mm")</span>
+            <div class="blog-text">
+                <h2>@Model.Post.PostTitle</h2>
+
+                <div class="blog-body">
+                    <p>
+                        @Html.Raw(HttpUtility.HtmlDecode(Html.DisplayFor(model => model.Post.PostBody).ToString()))
+
+                    </p>
+                </div>
+
+            </div>
         </div>
     </div>
+</div>
 </section>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Post.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+@User.Identity.GetUserId()
+@section Scripts{
+    <script>
+
+
+
+        let dislike = document.getElementById('dislikebtn');
+        let like = document.getElementById('likebtn');
+        let numberoflikes = document.getElementById('numberoflikes');
+        let numberofdislikes = document.getElementById('numberofdislikes');
+        let btn_save_post = document.getElementById('btn-save-blog');
+
+
+        if ("@Model.likedbyuser" == 1) {
+            like.classList.add('active');
+        } else if ("@Model.likedbyuser" == 2) {
+            dislike.classList.add('active');
+        }
+    
+        if ("@Model.saveedbyuser" == 'True') {
+            
+            btn_save_post.classList.add('active');
+        } else {
+            btn_save_post.classList.remove('active');
+        }
+
+        // Viewing The Post
+        $(document).ready(function () {
+            var numberofviews = document.getElementById("numberofviews");
+            $.ajax({
+                type: "Post",
+                url: "/Post/ViewPost/" + String(@Model.Post.Id),
+                success: function (response) {
+
+                    numberofviews.innerHTML = parseInt(numberofviews.innerHTML) + parseInt(response);
+                }
+            })
+
+        });
+
+
+        // Adding Like To Post
+        like.addEventListener("click", function () {
+            $.ajax({
+                type: "GET",
+                url: "/Post/Like/" + String(@Model.Post.Id),
+                success: function (response) {
+
+                    if (dislike.classList.contains('active')) {
+                        dislike.classList.remove('active');
+                        numberofdislikes.innerHTML = parseInt(numberofdislikes.innerHTML) - 1;
+                    }
+                    if (like.classList.contains('active')) {
+                        like.classList.remove('active');
+                        numberoflikes.innerHTML = parseInt(numberoflikes.innerHTML) - 1;
+                    } else {
+                        numberoflikes.innerHTML = parseInt(numberoflikes.innerHTML) + 1;
+                        like.classList.add('active');
+                    }
+
+                }
+            })
+        });
+
+        // Adding Dislike To The Post
+        dislike.addEventListener("click", function () {
+            $.ajax({
+                type: "GET",
+                url: "/Post/disLike/" + String(@Model.Post.Id),
+                success: function (response) {
+                    if (like.classList.contains('active')) {
+                        like.classList.remove('active');
+                        numberoflikes.innerHTML = parseInt(numberoflikes.innerHTML) - 1;
+                    }
+
+                    if (dislike.classList.contains('active')) {
+                        dislike.classList.remove('active');
+                        numberofdislikes.innerHTML = parseInt(numberofdislikes.innerHTML) - 1;
+                    } else {
+                        dislike.classList.add('active');
+                        numberofdislikes.innerHTML = parseInt(numberofdislikes.innerHTML) + 1;
+                    }
+                }
+            })
+        });
+
+        // Saving The Post
+        btn_save_post.addEventListener('click', function () {
+            $.ajax({
+                type: 'get',
+                url: '/Post/Save/' + String(@Model.Post.Id),
+                success: function (response) {
+                    if (response == "Saved") {
+                        btn_save_post.classList.add('active');
+                    } else {
+                        btn_save_post.classList.remove('active');
+                    }
+                }
+            })
+        })
+        @*var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost:2053/Post/Like/' + String(@Model.Post.Id), true);
+            xhr.onchange = function () {
+                if (status == 200) {
+                    alert('doneeeeeeeee');
+                    document.getElementById('numberoflikes').innerHTML = @Model.allInteractions.Where(x => x.Like ==1).Count() +1
+                    console.log(xhr.responseText);
+                }
+            }
+            xhr.send();*@
+
+    </script>
+}

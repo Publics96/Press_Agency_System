@@ -117,3 +117,9 @@ F:\University\Level 4\IA Project With Github New Virsion\Press_Agency_System\Pre
 F:\University\Level 4\IA Project With Github New Virsion\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.dll
 F:\University\Level 4\IA Project With Github New Virsion\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.pdb
 F:\University\Level 4\IA Project With Github New Virsion\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.updateColumnsforPostTable.resources
+F:\University\Level 4\IA Project With Github New Virsion\Press_Agency_System\Press_Agency_System\bin\System.Net.Http.Formatting.dll
+F:\University\Level 4\IA Project With Github New Virsion\Press_Agency_System\Press_Agency_System\bin\System.Web.Http.dll
+F:\University\Level 4\IA Project With Github New Virsion\Press_Agency_System\Press_Agency_System\bin\System.Web.Http.WebHost.dll
+F:\University\Level 4\IA Project With Github New Virsion\Press_Agency_System\Press_Agency_System\bin\System.Net.Http.Formatting.xml
+F:\University\Level 4\IA Project With Github New Virsion\Press_Agency_System\Press_Agency_System\bin\System.Web.Http.xml
+F:\University\Level 4\IA Project With Github New Virsion\Press_Agency_System\Press_Agency_System\bin\System.Web.Http.WebHost.xml
