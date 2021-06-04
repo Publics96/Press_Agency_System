@@ -1,0 +1,95 @@
+﻿@model SavedPostsViewModel
+@using Press_Agency_System.Models;
+@{
+    ViewBag.Title = "SavedPosts";
+}
+
+<style>
+    .save-blog #btn-save-blog {
+        transition: all ease 0.5s;
+    }
+
+        .save-blog #btn-save-blog.active {
+            color: #dc3545;
+        }
+
+        .save-blog #btn-save-blog:hover {
+            color: #dc3545;
+            transform: scale(1.1);
+        }
+
+        .save-blog #btn-save-blog.active:hover {
+            color: black;
+            transform: scale(1.1);
+        }
+</style>
+
+<div class="container">
+    <h2>Saved Posts</h2>
+    <div class="nothing" id="nothing" style="display:none;"><h3>No saved posts yet!</h3></div>
+    @if(Model.posts.Count()==0)
+     {
+        <div class="nothing" id="nothing" style="display:block;"><h3>No saved posts yet!</h3></div>
+    }
+    else
+    {
+        foreach (var i in Model.posts)
+        {
+        <div class="well" data-value="@i.Id" style="min-height:300px;">
+            <div class="media">
+                <a style="float:right;" onclick="removefromfav(event,@i.Id)"><span class="save-blog"><i style="font-size:25px;" id="btn-save-blog" class="fas fa-bookmark" data-value="@i.Id"></i></span></a>
+                <a class="pull-left" href="@Url.Action("Details","Post",new { id=i.Id})">
+                    <img class="media-object" src="~/Content/Posts Images/@i.ImagePath" style="height:100px;width:100px;">
+                </a>
+                <div class="media-body" style="display:flex;flex-direction:column;justify-content:space-around;">
+                    <h4 class="media-heading" style="margin-top:10px;">@i.PostTitle</h4>
+                    <p class="text-left" style="color:grey;">By @i.User.FirstName @i.User.LastName</p>
+                    <p>
+                        <div style="font-style:normal;">
+                            @Html.Raw(i.PostBody.Substring(0, Convert.ToInt32(Math.Round(i.PostBody.Length * 0.30))))
+                            <a href="@Url.Action("Details","Post",new { id=i.Id})" class="font-weight-lighter" style="font-size:small;font-style:italic;">Read more</a>
+                        </div>
+                    </p>
+                    <ul class="list-inline list-unstyled" style="margin-top:45px;">
+                        <li><span><i class="glyphicon glyphicon-calendar"></i> @i.PostDate.ToString("dd MMMM yyyy HH:mm") </span></li>
+                        <li>|</li>
+                        <span><i class="fas fa-heart"></i> @Model.likes[i.Id]</span>
+                        <li>|</li>
+                        <li>
+                            <span><i class="far fa-eye"></i> @Model.views[i.Id]</span>
+                        </li>
+                        <li>|</li>
+                        <li>
+                            <span class="badge" style="background-color: #dc3545;">@i.PostType</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        }
+    }
+</div>
+
+<script>
+    var nothingdiv = document.getElementById("nothing");
+
+    function removefromfav(event, id)
+    {
+        all_elements_div = document.querySelectorAll('.well');
+        if (all_elements_div.length == 1) { nothingdiv.style.display = "block"; }
+        var single_div = Array.from(all_elements_div).find((item) => item.getAttribute('data-value') == id);
+        single_div.remove();
+        $.ajax({
+            type: 'get',
+            url: '/Post/Save/' + String(id),
+            success: function (response) {
+                if (response == "Saved") {
+                    btn_save_post.classList.add('active');
+                } else {
+                    btn_save_post.classList.remove('active');
+                }
+            }
+        })
+        
+    };
+</script>

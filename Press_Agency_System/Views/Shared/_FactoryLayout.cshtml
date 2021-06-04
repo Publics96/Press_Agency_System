@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/Content/footer-style.css" />
+    @*<link rel="stylesheet" href="~/Content/footer-style.css" />*@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
-
+    <link rel="stylesheet" href="~/Content/footer-style-Factory.css" />
     <title>@ViewBag.Title - Press Agency</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -19,7 +19,7 @@
 
         .side-bar {
             background: #74AFAD;
-            position: absolute;
+            position: fixed;
             height: 100%;
             width: 200px;
             color: #fff;
@@ -132,13 +132,13 @@
                 </li>
                 <div class="menu">
                     <li>
-                        @if (HttpContext.Current.Request.Url.AbsolutePath == "Editor/Profile")
+                        @if (HttpContext.Current.Request.Url.AbsolutePath == "/Account/Profile")
                         {
-                            <a href="#" class="active">Profile <span class="glyphicon glyphicon-user pull-right"></span></a>
+                            <a href="@Url.Action("Profile","Account")" class="active">Profile <span class="glyphicon glyphicon-user pull-right"></span></a>
                         }
                         else
                         {
-                            <a href="#">Profile <span class="glyphicon glyphicon-user pull-right"></span></a>
+                            <a href="@Url.Action("Profile","Account")">Profile <span class="glyphicon glyphicon-user pull-right"></span></a>
                         }
 
                     </li>

@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -15,6 +16,7 @@ namespace Press_Agency_System.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -178,6 +180,35 @@ namespace Press_Agency_System.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+        public ActionResult Profile()
+        {
+            string userid = User.Identity.GetUserId();
+            var table = db.Posts.Where(x => x.UserId == userid).ToList();//This table contains all the posts done by this user.
+            var tableid = table.Select(x => x.Id);
+            int viewcount = 0;
+            int likecount = 0;
+            var table2 = db.IneractedPosts.Where(x=>tableid.Contains(x.PostId)); //This table should contain all the interactions of this user's posts
+
+
+            List<Post> UserPosts = db.Posts.Where(x => x.UserId == userid).ToList();
+            var user = db.Users.Find(userid);
+
+            viewcount = table2.Count();
+            likecount = table2.Where(x => x.Like == 1).Count();
+
+
+            ProfileViewModel viewmodel = new ProfileViewModel()
+            {
+                UserPosts = table,
+                user = db.Users.Find(userid),
+                likecount = likecount,
+                viewcount = viewcount
+
+            };
+
+
+            return View(viewmodel);
         }
 
         //
@@ -403,6 +434,9 @@ namespace Press_Agency_System.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+        
         #endregion
+
     }
+    
 }

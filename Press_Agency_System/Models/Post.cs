@@ -13,15 +13,17 @@ namespace Press_Agency_System.Models
 
         [Required]
         [MaxLength(200)]
+        [Display (Name ="Post Title")]
         public string PostTitle { get; set; }
 
         [Required]
         [MaxLength(9000)]
         [AllowHtml]
+        [Display (Name ="Post Content")]
         public string PostBody { get; set; }
-
+        [Display (Name = "Post Date")]
         public DateTime PostDate { get; set; }
-
+        [Display (Name ="Post Category")]
         [Required]
         public string PostType { get; set; }
 

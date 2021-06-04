@@ -7,36 +7,45 @@
 
 <h2>Moderation</h2>
 <div>
-        <table class="table">
-            <tbody>
+    @if(Model.Count()==0)
+     {
+                <h3>There are no posts yet</h3>
+     }
+    else
+    {
+        <table class="table table-striped">
+            <thead style="background-color: #2f2c2c;color: white;">
                 <tr>
-                    <th>
-                        UserName
+                    <th scope="col">
+                        User Name
                     </th>
-                    <th>
-                        PostTitle
+                    <th scope="col">
+                        Post Title
                     </th>
-                    <th>
-                        PostDate
+                    <th scope="col">
+                        Post Date
                     </th>
-                    <th>
-                        PostType
+                    <th scope="col">
+                        Post Category
                     </th>
                     <th></th>
                 </tr>
+            </thead>
+            <tbody>
                 @foreach (var i in Model)
                 {
                     <tr>
                         <td>@i.User.UserName</td>
-                        <td>@i.PostTitle</td>
+                        <td>@Html.ActionLink(i.PostTitle,"Details",new { i.Id })</td>
                         <td>@i.PostDate</td>
                         <td>@i.PostType</td>
-                        <td>@Html.ActionLink("Accept", "ModerationAccept", new { id=i.Id })|@Html.ActionLink("Reject", "ModerationReject", new { id=i.Id })</td>
+                        <td>@Html.ActionLink("Accept", "ModerationAccept", new { id=i.Id },new { @class="btn btn-success" })  @Html.ActionLink("Reject", "ModerationReject", new { id=i.Id }, new { @class = "btn btn-danger" })</td>
                     </tr>
                 }
 
 
             </tbody>
         </table>
+    }
      
 </div>

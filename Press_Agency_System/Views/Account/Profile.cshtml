@@ -1,60 +1,253 @@
-﻿
+﻿@model ProfileViewModel 
+@using System;
+@using Press_Agency_System.Models;
+@using Press_Agency_System.Controllers;
 @{
     ViewBag.Title = "Profile";
 }
 <head>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/profile-style.css" />
 </head>
-<h2>Profile</h2>
-<div class="row py-5 px-4">
-    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
-
-        <!-- Profile widget -->
-        <div class="bg-white shadow rounded overflow-hidden">
-            <div class="px-4 pt-0 pb-4 bg-dark">
-                <div class="media align-items-end profile-header">
-                    <div class="profile mr-3"><img src="https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/teacher-4.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail"><a href="#" class="btn btn-dark btn-sm btn-block">Edit profile</a></div>
-                    <div class="media-body mb-5 text-white">
-                        <h4 class="mt-0 mb-0">Manuella Tarly</h4>
-                        <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i>San Farcisco</p>
-                    </div>
+<body>
+    
+    <section id="content" class="container">
+        <!-- Begin .page-heading -->
+        <div class="page-heading">
+            <div class="media clearfix">
+                <div class="media-left pr30">
+                    <a href="#">
+                        <img class="media-object mw150" style="border-radius: 20%; width: 250px; height: 250px; margin-bottom: 20px;" src="~/Content/Persons Images/@Model.user.PhotoPath" alt="Photo" onerror="this.onerror=null; this.src='~/Content/dist/img/AdminLTELogo.png'" style="border-radius:20%;">
+                    </a>
                 </div>
-            </div>
-
-            <div class="bg-light p-4 d-flex justify-content-end text-center">
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item">
-                        <h5 class="font-weight-bold mb-0 d-block">241</h5><small class="text-muted"> <i class="fa fa-picture-o mr-1"></i>Photos</small>
-                    </li>
-                    <li class="list-inline-item">
-                        <h5 class="font-weight-bold mb-0 d-block">84K</h5><small class="text-muted"> <i class="fa fa-user-circle-o mr-1"></i>Followers</small>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="py-4 px-4">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h5 class="mb-0">Recent photos</h5><a href="#" class="btn btn-link text-muted">Show all</a>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 mb-2 pr-lg-1"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/nicole-honeywill-546848-unsplash_ymprvp.jpg" alt="" class="img-fluid rounded shadow-sm"></div>
-                    <div class="col-lg-6 mb-2 pl-lg-1"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294927/dose-juice-1184444-unsplash_bmbutn.jpg" alt="" class="img-fluid rounded shadow-sm"></div>
-                    <div class="col-lg-6 pr-lg-1 mb-2"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294926/cody-davis-253925-unsplash_hsetv7.jpg" alt="" class="img-fluid rounded shadow-sm"></div>
-                    <div class="col-lg-6 pl-lg-1"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/tim-foster-734470-unsplash_xqde00.jpg" alt="" class="img-fluid rounded shadow-sm"></div>
-                </div>
-                <div class="py-4">
-                    <h5 class="mb-3">Recent posts</h5>
-                    <div class="p-4 bg-light rounded shadow-sm">
-                        <p class="font-italic mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                        <ul class="list-inline small text-muted mt-3 mb-0">
-                            <li class="list-inline-item"><i class="fa fa-comment-o mr-2"></i>12 Comments</li>
-                            <li class="list-inline-item"><i class="fa fa-heart-o mr-2"></i>200 Likes</li>
+                <div class="media-body va-m">
+                    <h2 class="media-heading">
+                        @(Model.user.FirstName + " "+ Model.user.LastName)
+                        <small> - Profile</small>
+                    </h2>
+                    <p class="lead" style="">@Model.user.Email</p>
+                    <button class="btn-primary btn" style="margin-bottom:50px;"><i class="far fa-question-circle"></i>  Ask A Question</button>
+                    <div class="media-links">
+                        <ul class="list-inline list-unstyled">
+                            <li>
+                                <a href="#" title="facebook link">
+                                    <span class="fa fa-facebook-square fs35 text-primary"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="twitter link">
+                                    <span class="fa fa-twitter-square fs35 text-info"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="google plus link">
+                                    <span class="fa fa-google-plus-square fs35 text-danger"></span>
+                                </a>
+                            </li>
+                            <li class="hidden">
+                                <a href="#" title="behance link">
+                                    <span class="fa fa-behance-square fs35 text-primary"></span>
+                                </a>
+                            </li>
+                            <li class="hidden">
+                                <a href="#" title="pinterest link">
+                                    <span class="fa fa-pinterest-square fs35 text-danger-light"></span>
+                                </a>
+                            </li>
+                            <li class="hidden">
+                                <a href="#" title="linkedin link">
+                                    <span class="fa fa-linkedin-square fs35 text-info"></span>
+                                </a>
+                            </li>
+                            <li class="hidden">
+                                <a href="#" title="github link">
+                                    <span class="fa fa-github-square fs35 text-dark"></span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#" title="phone link">
+                                    <span class="fa fa-phone-square fs35 text-system"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="email link">
+                                    <span class="fa fa-envelope-square fs35 text-muted"></span>
+                                </a>
+                            </li>
+                            <li class="hidden">
+                                <a href="#" title="external link">
+                                    <span class="fa fa-external-link-square fs35 text-muted"></span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div><!-- End profile widget -->
+        </div>
 
-    </div>
-</div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <span class="panel-icon">
+                            <i class="fa fa-star"></i>
+                        </span>
+                        <span class="panel-title"> User Popularity</span>
+                    </div>
+                    <div class="panel-body pn">
+                        <table class="table mbn tc-icon-1 tc-med-2 tc-bold-last">
+                            <thead>
+                                <tr class="hidden">
+                                    <th class="mw30">#</th>
+                                    <th>First Name</th>
+                                    <th>Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="text-primary"><i class="fab fa-microblog" style="font-size:medium;"></i></span>
+                                    </td>
+                                    <td>Total Posts</td>
+                                    <td>
+                                        <i class="text-info pr10"></i>@Model.UserPosts.Count()
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-primary"><i class="far fa-eye"></i></span>
+                                    </td>
+                                    <td>Total Views</td>
+                                    <td>
+                                        <i class="text-danger pr10"></i>@Model.viewcount
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-info"><i class="fas fa-heart"></i></span>
+                                    </td>
+                                    <td>Total Likes</td>
+                                    <td>
+                                        <i class="text-info pr10"></i>@Model.likecount
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @*<div class="panel">
+                    <div class="panel-heading">
+                        <span class="panel-icon">
+                            <i class="fa fa-trophy"></i>
+                        </span>
+                        <span class="panel-title"> My Skills</span>
+                    </div>
+                    <div class="panel-body pb5">
+                        <span class="label label-warning mr5 mb10 ib lh15">Default</span>
+                        <span class="label label-primary mr5 mb10 ib lh15">Primary</span>
+                        <span class="label label-info mr5 mb10 ib lh15">Success</span>
+                        <span class="label label-success mr5 mb10 ib lh15">Info</span>
+                        <span class="label label-alert mr5 mb10 ib lh15">Warning</span>
+                        <span class="label label-system mr5 mb10 ib lh15">Danger</span>
+                        <span class="label label-info mr5 mb10 ib lh15">Success</span>
+                        <span class="label label-success mr5 mb10 ib lh15">Ui Design</span>
+                        <span class="label label-primary mr5 mb10 ib lh15">Primary</span>
 
+                    </div>
+                </div>*@
+                <div class="panel">
+                    <div class="panel-heading">
+                        <span class="panel-icon">
+                            <i class="fa fa-pencil"></i>
+                        </span>
+                        <span class="panel-title">Information</span>
+                    </div>
+                    <div class="panel-body pb5">
+
+                        <h6>Email</h6> 
+
+                        <h4>@Model.user.Email</h4>
+                        
+
+                        <hr class="short br-lighter">
+
+                        <h6>Phone Number</h6>
+
+                        <h4>@Model.user.Phone</h4>
+                        
+
+                        @*<hr class="short br-lighter">
+
+                        <h6>Accomplishments</h6>
+
+                        <h4>Successful Business</h4>*@
+                        
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+
+                <div class="tab-block">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab1" data-toggle="tab">Activity</a>
+                        </li>
+                        <li>
+                            <a href="#tab2" data-toggle="tab">Social</a>
+                        </li>
+                        <li>
+                            <a href="#tab3" data-toggle="tab">Media</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content p30" style="height: 730px;">
+                        <div id="tab1" class="tab-pane active">
+                            @if(Model.UserPosts.Where(x=>x.State == PostState.Accepted).Count()==0)
+                            {
+                                <center><h3>There are no posts to view</h3></center>
+                            }
+                            else
+                            { 
+                            foreach (var i in Model.UserPosts.Where(x => x.State == PostState.Accepted))
+                            {
+                                <div style="border:solid 0.5px;border-radius:5px;border-color:khaki;padding:15px;margin-bottom:15px;">
+
+                                    <div class="media">
+                                        <a class="pull-left" href="#"> <img style="border-radius:100%;width:40px;height:40px;margin-bottom:20px;" src="~/Content/Persons Images/@Model.user.PhotoPath" alt="..."> </a>
+                                        <div class="media-body" style="margin-bottom:20px;">
+                                            <h4 class="media-heading mb5" style="margin-top:10px">
+                                                @(Model.user.FirstName + " "+ Model.user.LastName) <small>Posted at</small>
+                                                <small> @(i.PostDate.ToString("dd MMMM yyyy HH:mm")) </small>
+                                            </h4>
+
+
+                                        </div>
+                                        <div>
+                                            <a href="@Url.Action("Details","Post",new { id = i.Id })">
+                                                <img src="~/Content/Posts Images/@i.ImagePath"  style="width:100%;"/>
+                                                <h1>@i.PostTitle</h1>
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                }
+                            }
+                        </div>
+
+                        <div id="tab2" class="tab-pane"></div>
+                        <div id="tab3" class="tab-pane"></div>
+                        <div id="tab4" class="tab-pane"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>

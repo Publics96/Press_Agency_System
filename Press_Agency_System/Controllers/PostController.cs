@@ -7,11 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Press_Agency_System.Models;
 
 namespace Press_Agency_System.Controllers
 {
-    [Authorize(Roles = "Admin,Editor")]
+    [Authorize(Roles = "Admin,Editor,Viewer")]
     public class PostController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -57,11 +58,18 @@ namespace Press_Agency_System.Controllers
             }
             Post post = db.Posts.Include(e => e.User).SingleOrDefault(x => x.Id == id);
 
-            if (post == null)
+            if (post == null )
             {
                 return HttpNotFound();
             }
             var userId = User.Identity.GetUserId();
+
+            if ((post.State == PostState.Waiting || post.State == PostState.Rejected) && !isAuthorized(userId))
+            {
+                return HttpNotFound();
+            }
+
+            
             List<InteractedPosts> allposts = db.IneractedPosts.Where(e => e.PostId == id).ToList();
             var obj = allposts.Find(e => e.UserId == userId) as InteractedPosts;
             byte likedbyuser;
@@ -88,7 +96,7 @@ namespace Press_Agency_System.Controllers
 
             return View(pdvm);
         }
-
+        [Authorize (Roles="Admin,Editor")]
         // GET: /Post/Create
         public ActionResult Create()
         {
@@ -97,7 +105,7 @@ namespace Press_Agency_System.Controllers
         }
 
         // POST: /Post/Create
-
+        [Authorize(Roles = "Admin,Editor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Post post, HttpPostedFileBase UploadedImage)
@@ -130,7 +138,7 @@ namespace Press_Agency_System.Controllers
         }
 
         // GET: /Post/Edit/5
-
+        [Authorize(Roles = "Admin,Editor")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -151,6 +159,7 @@ namespace Press_Agency_System.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Editor")]
         public ActionResult Edit(Post post, HttpPostedFileBase UploadedImage)
         {
             ViewBag.PostCategories = PostCategories.AllCategories;
@@ -180,6 +189,7 @@ namespace Press_Agency_System.Controllers
 
 
         // GET: /Post/Delete/5
+        [Authorize(Roles = "Admin,Editor")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -412,6 +422,52 @@ namespace Press_Agency_System.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Moderation");
+        }
+        [Authorize (Roles = "Admin,Editor,Viewer")]
+        public ActionResult SavedPosts()
+        {
+            string userid = User.Identity.GetUserId();
+            var savedposts = db.SavedPosts.Where(x=>x.UserId==userid).ToList().Select(x=>x.PostId);
+
+            var posts = db.Posts.Include(x=>x.User).Where(x=>savedposts.Contains(x.Id)).ToList();
+
+            var interactedposts = db.IneractedPosts.Where(x => savedposts.Contains(x.PostId)).ToList();
+
+            Dictionary<int, int> views = new Dictionary<int, int>();
+            Dictionary<int, int> likes = new Dictionary<int, int>();
+
+            foreach (var i in posts)
+            {
+                views[i.Id] = interactedposts.Where(x=>x.PostId==i.Id).Count();
+                likes[i.Id] = interactedposts.Where(x => x.PostId == i.Id).Where(x => x.Like == 1).Count();
+            }
+            SavedPostsViewModel model = new SavedPostsViewModel()
+            {
+                posts= posts,
+                likes = likes,
+                views = views
+            };
+
+            return View(model);
+        }
+        public bool isAuthorized(string userid)
+        {
+            var user = db.Users.Find(userid);
+            if(user == null)
+            {
+                return false;
+            }
+
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            string rolename = userManager.GetRoles(userid).FirstOrDefault();
+
+            if(rolename=="Admin" || rolename == "Editor")
+            {
+                return true;
+
+            }
+
+            return false;
         }
     }
 }

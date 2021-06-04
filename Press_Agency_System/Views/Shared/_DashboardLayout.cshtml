@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/Content/footer-Dashboard-style.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+
     <title>@ViewBag.Title - Press Agency</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -24,9 +25,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Profile", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Profile", "Profile", "Account")</li>
                     <li>@Html.ActionLink("User Page", "About", "Home")</li>
-                    <li>@Html.ActionLink("Post Page", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Post Page", "Index", "Post")</li>
                     <li>@Html.ActionLink("Post Request", "Moderation", "Post")</li>
                     <li>@Html.ActionLink("Messages", "Contact", "Home")</li>
                 </ul>
@@ -40,32 +41,35 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer1" style=" width: 100%; bottom: 0; height:93px; margin-bottom:0px" class="">
-        <div class="container" style="padding: 15px 0;" align="center">
-            <a href="#" style="        margin: 10px;">
-                <i class="fa fa-facebook fa-lg white-text mr-md-5 mr-3 fa-x"></i>
-            </a>
-            <a href="#" style="        margin: 10px;">
-                <i class="fa fa-twitter fa-lg white-text mr-md-5 mr-3 fa-x"></i>
-            </a>
-            <a href="#" style="        margin: 10px;">
-                <i class="fa fa-google-plus fa-lg white-text mr-md-5 mr-3 fa-x"></i>
-            </a>
-            <a href="#" style="        margin: 10px;">
-                <i class="fa fa-linkedin fa-lg white-text mr-md-5 mr-3 fa-x"></i>
-            </a>
-            <a href="#" style="        margin: 10px;">
-                <i class="fa fa-instagram fa-lg white-text mr-md-5 mr-3 fa-x"></i>
-            </a>
-            <a href="#" style="margin:10px;">
-                <i class="fa fa-pinterest fa-lg white-text"></i>
-            </a>
-        </div>
-        <div class="bg-dark" @*style="background: #004872;"*@>
-            <p style="color: #91BEC2; padding: 15px 0;" align="center">
-                &copy; @DateTime.Now.Year Copyright: <a href="#">Created By: 5M Team</a>
-            </p>
-        </div>
+    @*<footer class="footer1" style=" width: 100%; bottom: 0; height:93px; margin-bottom:0px;position:fixed;">
+            <div class="container" style="padding: 15px 0;" align="center">
+                <a href="#" style="        margin: 10px;">
+                    <i class="fa fa-facebook fa-lg white-text mr-md-5 mr-3 fa-x"></i>
+                </a>
+                <a href="#" style="        margin: 10px;">
+                    <i class="fa fa-twitter fa-lg white-text mr-md-5 mr-3 fa-x"></i>
+                </a>
+                <a href="#" style="        margin: 10px;">
+                    <i class="fa fa-google-plus fa-lg white-text mr-md-5 mr-3 fa-x"></i>
+                </a>
+                <a href="#" style="        margin: 10px;">
+                    <i class="fa fa-linkedin fa-lg white-text mr-md-5 mr-3 fa-x"></i>
+                </a>
+                <a href="#" style="        margin: 10px;">
+                    <i class="fa fa-instagram fa-lg white-text mr-md-5 mr-3 fa-x"></i>
+                </a>
+                <a href="#" style="margin:10px;">
+                    <i class="fa fa-pinterest fa-lg white-text"></i>
+                </a>
+            </div>
+            <div class="bg-dark" style="background:black;">
+                <p style="color: #91BEC2; padding: 15px 0;" align="center">
+                    &copy; @DateTime.Now.Year Copyright: <a href="#">Created By: 5M Team</a>
+                </p>
+            </div>
+        </footer>*@
+    <footer>
+        <center><p>&copy; @DateTime.Now.Year - 5M Team</p></center>
     </footer>
     <!-- Footer -->
 
