@@ -175,6 +175,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,6 +194,14 @@
     <Compile Include="Migrations\202106011335069_updateColumnsforPostTable.cs" />
     <Compile Include="Migrations\202106011335069_updateColumnsforPostTable.Designer.cs">
       <DependentUpon>202106011335069_updateColumnsforPostTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106050753027_addroletype.cs" />
+    <Compile Include="Migrations\202106050753027_addroletype.Designer.cs">
+      <DependentUpon>202106050753027_addroletype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106051033021_activeuserattribute.cs" />
+    <Compile Include="Migrations\202106051033021_activeuserattribute.Designer.cs">
+      <DependentUpon>202106051033021_activeuserattribute.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -427,6 +436,7 @@
     <Content Include="Content\footer-style.css" />
     <Content Include="Content\footer-Dashboard-style.css" />
     <Content Include="Content\login-style.css" />
+    <Content Include="Content\Persons Images\defaultuserphoto.jpg" />
     <Content Include="Content\Persons Images\person1.jpg" />
     <Content Include="Content\Persons Images\person2.jpg" />
     <Content Include="Content\Persons Images\person3.jpg" />
@@ -442,6 +452,7 @@
     <Content Include="Content\searchbar-style.css" />
     <Content Include="Content\sidebar-js.js" />
     <Content Include="Content\sidebar-style.css" />
+    <Content Include="Content\Users.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2892,6 +2903,9 @@
     <Content Include="Views\Post\Moderation.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Post\SavedPosts.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2915,6 +2929,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106011335069_updateColumnsforPostTable.resx">
       <DependentUpon>202106011335069_updateColumnsforPostTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106050753027_addroletype.resx">
+      <DependentUpon>202106050753027_addroletype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051033021_activeuserattribute.resx">
+      <DependentUpon>202106051033021_activeuserattribute.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

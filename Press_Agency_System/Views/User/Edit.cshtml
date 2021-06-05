@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+<link href="~/Content/Users.css" rel="stylesheet" />
+@model  Press_Agency_System.Models.ApplicationUser
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+@Styles.Render("~/Content/css")
+<div class="container">
+    <div> <h2>@Html.ActionLink("Back to page", "Index")</h2></div>
+    <div class="row">
+        <div class="col-md-4"> </div>
+        <div class="col-md-4">
+            @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="card user-card form-horizontal">
+
+                    <div class="card-block">
+                        <div class="user-image">
+                            <img src="~/Content/Persons Images/defaultuserphoto.jpg" class="img-radius" id="OpenImgUpload" alt="User-Profile-Image">
+                        </div>
+                        <input type="file" name="UploadedImage" onchange="loadFile(event)" id="UploadedImage" accept=".png,.jpg,.jpeg,.gif,.tif" style="margin-left:50px;padding:10px;" />
+                        @Html.ValidationSummary(true)
+                        <h6 class="f-w-600 m-t-25 m-b-10">FirstName:</h6>
+                        <div class="form-group">
+                            @Html.EditorFor(m => m.FirstName)
+                            @Html.ValidationMessageFor(m => m.FirstName)
+                        </div>
+
+                        <hr>
+                        <h6 class="f-w-600 m-t-25 m-b-10 ">LastName:</h6>
+                        <div class="form-group">
+                            @Html.EditorFor(m => m.LastName)
+                            @Html.ValidationMessageFor(m => m.LastName)
+                        </div>
+                        <hr>
+                        <h6 class="f-w-600 m-t-25 m-b-10 ">E-mail:</h6>
+                        <div>
+                            @Html.EditorFor(m => m.Email)
+                            @Html.ValidationMessageFor(m => m.Email)
+                        </div>
+                        <hr>
+                        <h6 class="f-w-600 m-t-25 m-b-10 ">Phone:</h6>
+                        <div>
+                            @Html.EditorFor(m => m.Phone)
+                            @Html.ValidationMessageFor(m => m.Phone)
+                        </div>
+
+                        <hr>
+                        <h6 class="f-w-600 m-t-25 m-b-10 ">UserName:</h6>
+                        <div class="form-group">
+                            @Html.EditorFor(m => m.UserName,new{ @class= "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName)
+
+                        </div>
+
+                        <hr>
+
+                        
+                        @if (this.User.IsInRole("Admin"))
+                        {
+                            <h6 class="f-w-600 m-t-25 m-b-10">RoleOfUser:</h6>
+                        <div>
+                            <select name="userrole">
+                                <option value="Admin">Admin</option>
+                                <option value="Editor">Editor</option>
+                                <option value="Viewer">Viewer</option>
+
+                            </select>
+
+                        </div>
+                        <hr>
+                        }
+
+                        <input type="submit" value="Edit" class="btn btn-default" />
+
+
+
+
+
+
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-4"> </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        document.getElementById("OpenImgUpload").onclick = function () {
+            document.getElementById("UploadedImage").click();
+
+
+        }
+
+        var loadFile = function (event) {
+            var image = document.getElementById('OpenImgUpload');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+
+
+
+    </script>
+
+
+
+}

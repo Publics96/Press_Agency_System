@@ -24,7 +24,8 @@ namespace Press_Agency_System.Models
         public string Phone { get; set; }
 
         public string PhotoPath { get; set; }
-
+        public IdentityRole roleType { get; set; }
+        public bool activeUser { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

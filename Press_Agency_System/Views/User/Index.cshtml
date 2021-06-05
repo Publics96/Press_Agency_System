@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewBag.Title = "User";
+}
+
+@model  Press_Agency_System.Models.ApplicationUser
+
+
+<link href="~/Content/Users.css" rel="stylesheet" />
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@Styles.Render("~/Content/css")
+<!---->@*<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">*@
+<div class="container">
+    <div class="row">
+        @* <div class="col-md-1">
+
+            </div>*@
+
+        <div class="col-md-4">
+            <div class="card user-card">
+
+                <div class="card-block">
+                    @using (Html.BeginForm("AddUser", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="user-image">
+                            <img src="~/Content/Persons Images/defaultuserphoto.jpg" class="img-radius" id="OpenImgUpload" alt="User-Profile-Image">
+                            @*<input type="file" id="file"  name="UploadedImage" />*@
+                        </div>
+
+
+
+                        <input type="file" name="UploadedImage" onchange="loadFile(event)" id="UploadedImage" accept=".png,.jpg,.jpeg,.gif,.tif" style="margin-left:50px;padding:10px;" />
+                        @Html.ValidationSummary(true)
+                        <h6 class="f-w-600 m-t-25 m-b-10 ">FirstName:</h6>
+                        <div>
+                            @Html.EditorFor(m => m.FirstName)
+                            @Html.ValidationMessageFor(m => m.FirstName)
+                        </div>
+
+                        <hr>
+                        <h6 class="f-w-600 m-t-25 m-b-10 ">LastName:</h6>
+                        <div>
+                            @Html.EditorFor(m => m.LastName)
+                            @Html.ValidationMessageFor(m => m.LastName)
+                        </div>
+                        <hr>
+                        <h6 class="f-w-600 m-t-25 m-b-10 ">E-mail:</h6>
+                        <div>
+                            @Html.EditorFor(m => m.Email)
+                            @Html.ValidationMessageFor(m => m.Email)
+                        </div>
+                        <hr>
+                        <h6 class="f-w-600 m-t-25 m-b-10 ">Phone:</h6>
+                        <div>
+                            @Html.EditorFor(m => m.Phone)
+                            @Html.ValidationMessageFor(m => m.Phone)
+                        </div>
+
+                        <hr>
+                        <h6 class="f-w-600 m-t-25 m-b-10 ">UserName:</h6>
+                        <div>
+                            @Html.EditorFor(m => m.UserName)
+                            @Html.ValidationMessageFor(m => m.UserName)
+
+                        </div>
+
+                        <hr>
+                        <h6 class="f-w-600 m-t-25 m-b-10">Password:</h6>
+                        <div>
+                            @Html.PasswordFor(m => m.PasswordHash)
+                            @Html.ValidationMessageFor(m => m.PasswordHash)
+                        </div>
+                        <hr>
+                        <h6 class="f-w-600 m-t-25 m-b-10">RoleOfUser:</h6>
+                        <div>
+                            <select name="userrole">
+                                <option value="Admin">Admin</option>
+                                <option value="Editor">Editor</option>
+                                <option value="Viewer">Viewer</option>
+
+                            </select>
+
+                        </div>
+                        <hr>
+
+                        <div class="form-group">
+                            <input type="submit" value="AddUser" class="btn btn-default" />
+                            <p>@TempData["mess"]</p>
+
+                        </div>
+
+
+                    }
+                </div>
+            </div>
+        </div>
+
+        @*<div class="col-md-1"> </div>*@
+        <div class="col-md-8">
+            <div class="card user-card" style="padding:10px;">
+                @*<table class="table table-striped" id="u">*@
+                <table id="u" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            @*<th>Id</th>*@
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>UserName</th>
+                            <th>roleType</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-1"> </div>
+    </div>
+</div>
+@section Scripts{
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+    <script>
+        var form_data;
+
+        $(document).ready(function () {
+            var myt= $("#u").DataTable(
+                       {
+                           selected: true,
+                           searchHighlight: true,
+                           "ajax": {
+                               "url": "/User/AllUsers",
+                               "type": "GET",
+                               "datatype": "json"
+                           },
+                           "columns": [
+                               //{data: "Id"},
+                               { data: "FirstName" },
+                               { data: "LastName" },
+                               { data: "Email" },
+                               { data: "Phone" },
+                               { data: "UserName" },
+                               { data: "roleType.Name" },
+
+                               {
+                                   //data: null,
+                                   //defaultContent: '<a href="#">Edit</a> | </a><a href="#">Delete</a>'
+                                   render: function (data, type, user) { return "<a href='/User/Edit/" + user.Id + "'/>" + "Edit" + "</a>" +" | "+ "<a href='/User/Delete/" + user.Id + "'/>" + "Delete"; },
+
+                               }
+
+                           ]
+                       });
+            //myt.row({ selected: true });
+            myt.rows({ selected: true });
+            myt.columns({ selected: true });
+            myt.cells({ selected: true });
+
+
+
+
+
+            //$('#u tbody').on('click', 'tr', function () {
+            //    //form_data = myt.rows(this)[0];
+            //    form_data = myt.rows(this)[0];
+            //    //window.open(go_to_url, '_blank');
+            //    //$.each( form_data, function( key, value ) {
+            //    //    alert( key + ": " + value );
+            //    //});
+
+            //    f="Edit/"+form_data
+            //    window.location.href =f;
+            //    //alert(form_data);
+
+
+            //});
+
+            //$('#u').on('search.dt', function () {
+            //    var value = $('.dataTables_filter input').val();
+            //    alert(value); // <-- the value
+            //});
+
+
+        });
+
+        document.getElementById("OpenImgUpload").onclick = function () {
+            document.getElementById("UploadedImage").click();
+
+
+        }
+
+        var loadFile = function (event) {
+            var image = document.getElementById('OpenImgUpload');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+
+
+
+
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
