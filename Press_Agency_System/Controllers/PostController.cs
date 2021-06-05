@@ -139,6 +139,7 @@ namespace Press_Agency_System.Controllers
 
         // GET: /Post/Edit/5
         [Authorize(Roles = "Admin,Editor")]
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -151,15 +152,25 @@ namespace Press_Agency_System.Controllers
             {
                 return HttpNotFound();
             }
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            string rolename = userManager.GetRoles(post.UserId).FirstOrDefault();
+            if (rolename == "Editor")
+            {
+                if (User.Identity.GetUserId() != post.UserId)
+                {
+                    return HttpNotFound();
+                }
+            }
 
             return View(post);
         }
 
         // POST: /Post/Edit/5
 
+        
+        [Authorize(Roles = "Admin,Editor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Editor")]
         public ActionResult Edit(Post post, HttpPostedFileBase UploadedImage)
         {
             ViewBag.PostCategories = PostCategories.AllCategories;
@@ -171,7 +182,6 @@ namespace Press_Agency_System.Controllers
                     UploadedImage.SaveAs(path);
                     post.ImagePath = UploadedImage.FileName;
                 }
-
 
 
                 post.UserId = User.Identity.GetUserId();
@@ -429,7 +439,7 @@ namespace Press_Agency_System.Controllers
             string userid = User.Identity.GetUserId();
             var savedposts = db.SavedPosts.Where(x=>x.UserId==userid).ToList().Select(x=>x.PostId);
 
-            var posts = db.Posts.Include(x=>x.User).Where(x=>savedposts.Contains(x.Id)).ToList();
+            var posts = db.Posts.Include(x=>x.User).Where(x => savedposts.Contains(x.Id)).ToList();
 
             var interactedposts = db.IneractedPosts.Where(x => savedposts.Contains(x.PostId)).ToList();
 

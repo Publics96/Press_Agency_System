@@ -181,6 +181,7 @@ C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\bin\Micr
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.csprojAssemblyReference.cache
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.InitialCreate.resources
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.AddMainTables.resources
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.modifyingTables.resources
@@ -190,6 +191,7 @@ C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debu
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.csproj.CopyComplete
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.dll
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.pdb
+<<<<<<< Updated upstream
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.csprojAssemblyReference.cache
 C:\Users\micheal\Downloads\Press_Agency_System\Press_Agency_System\bin\Press_Agency_System.dll.config
 C:\Users\micheal\Downloads\Press_Agency_System\Press_Agency_System\bin\Press_Agency_System.dll
@@ -259,3 +261,5 @@ C:\Users\micheal\Downloads\Press_Agency_System\Press_Agency_System\obj\Debug\Pre
 C:\Users\micheal\Downloads\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.pdb
 C:\Users\micheal\Downloads\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.addroletype.resources
 C:\Users\micheal\Downloads\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.activeuserattribute.resources
+=======
+>>>>>>> Stashed changes

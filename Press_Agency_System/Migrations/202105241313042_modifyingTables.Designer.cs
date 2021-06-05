@@ -7,10 +7,10 @@ namespace Press_Agency_System.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class modifyingTables : IMigrationMetadata
+    public sealed partial class c : IMigrationMetadata
     {
         private readonly ResourceManager Resources = new ResourceManager(typeof(modifyingTables));
-        
+
         string IMigrationMetadata.Id
         {
             get { return "202105241313042_modifyingTables"; }

@@ -150,7 +150,7 @@
                         else
                         {
                             <a href="@Url.Action("Create","Post")">Create New Post <span class="glyphicon glyphicon-plus-sign pull-right"></span></a>
-                            
+
                         }
 
                     </li>
@@ -173,6 +173,17 @@
                         else
                         {
                             <a href="#">Received Questions <span class="glyphicon glyphicon-question-sign pull-right"></span></a>
+                        }
+
+                    </li>
+                    <li>
+                        @if (HttpContext.Current.Request.Url.AbsolutePath == "/Post/SavedPosts")
+                        {
+                            <a href="@Url.Action("SavedPosts","Post")" class="active">Saved Posts <i class="fas fa-save pull-right"></i></a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("SavedPosts","Post")">Saved Posts <i class="fas fa-save pull-right"></i></a>   
                         }
 
                     </li>
