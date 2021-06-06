@@ -184,11 +184,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
-<<<<<<< Updated upstream
     <Compile Include="Controllers\UserController.cs" />
-=======
     <Compile Include="Controllers\RSSController.cs" />
->>>>>>> Stashed changes
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2924,13 +2921,10 @@
     <Content Include="Views\Post\Moderation.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Post\SavedPosts.cshtml" />
-<<<<<<< Updated upstream
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
-=======
     <Content Include="Views\RSS\Index.cshtml" />
->>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
