@@ -36,7 +36,7 @@ namespace Press_Agency_System.Controllers
         public ActionResult AllUsers()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var allusers = db.Users.Include(e=>e.roleType).ToList();
+            var allusers = db.Users.Include(e => e.roleType).Where(x => x.activeUser == true).ToList();
             return Json(new { data = allusers }, JsonRequestBehavior.AllowGet);
 
         }
@@ -59,9 +59,9 @@ namespace Press_Agency_System.Controllers
                     userObj.PhotoPath = "defaultuserphoto.jpg";
                 }
                 userObj.activeUser = true;
-                userObj.roleType = db.Roles.FirstOrDefault(x => x.Name == userrole); 
+                userObj.roleType = db.Roles.FirstOrDefault(x => x.Name == userrole);
 
-                 var flag = userManager.Create(userObj, userObj.PasswordHash);
+                var flag = userManager.Create(userObj, userObj.PasswordHash);
                 if (flag.Succeeded)
                 {
                     if (userrole == "Admin")
@@ -84,12 +84,12 @@ namespace Press_Agency_System.Controllers
                     return RedirectToAction("Index");
                 }
 
-                TempData["mess"] = "invaild";
+                TempData["mess"] = "invaild username or password";
                 return RedirectToAction("Index");
             }
             else
             {
-                TempData["mess"] = "invaild";
+                TempData["mess"] = "invaild username or password";
                 return RedirectToAction("Index");
             }
         }
@@ -122,17 +122,19 @@ namespace Press_Agency_System.Controllers
             {
                 return HttpNotFound();
             }
+
             //  ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", obj.UserId);
             return View(obj);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin,Editor,Viewer")]
-        public ActionResult Edit([Bind(Include = "Id,UserName,FirstName,LastName,Email,Phone,PhotoPath,roleType")] ApplicationUser obj, HttpPostedFileBase UploadedImage, string userrole)
+        public ActionResult Edit([Bind(Include = "Id,UserName,FirstName,LastName,Email,Phone,PhotoPath,roleType,activeUser")] ApplicationUser obj, HttpPostedFileBase UploadedImage, string userrole)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             if (ModelState.IsValid)
             {
+
                 if (UploadedImage != null)
                 {
                     var path = System.IO.Path.Combine(Server.MapPath("~/Content/Persons Images"), UploadedImage.FileName);
@@ -142,8 +144,9 @@ namespace Press_Agency_System.Controllers
                 }
                 else
                 {
-                    obj.PhotoPath = "DefaultImageForPost.jpg";
+                    obj.PhotoPath = "defaultuserphoto.jpg";
                 }
+                obj.activeUser = true;
                 obj.roleType = db.Roles.FirstOrDefault(x => x.Name == userrole);
                 var dotuse = db.Users.Include(x => x.roleType).FirstOrDefault(e => e.Id == obj.Id);
                 userManager.RemoveFromRole(dotuse.Id, dotuse.roleType.Name);
@@ -163,14 +166,11 @@ namespace Press_Agency_System.Controllers
                     userManager.AddToRole(obj.Id, Roles.Viewer);
                     obj.roleType.Name = "Viewer";
                 }
-                //db.Entry(obj).State = EntityState.Modified;
-
-                //db.SaveChanges();
                 updatfunc(obj);
-
                 return RedirectToAction("Index");
             }
-            //ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", obj.UserId);
+
+
             return View(obj);
         }
 
@@ -201,9 +201,9 @@ namespace Press_Agency_System.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(string id)
         {
-            ApplicationUser obj = db.Users.FirstOrDefault(x=>x.Id==id);
+            ApplicationUser obj = db.Users.FirstOrDefault(x => x.Id == id);
             obj.activeUser = false;
-            
+
             db.Entry(obj).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");

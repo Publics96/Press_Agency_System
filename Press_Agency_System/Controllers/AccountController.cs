@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -76,16 +74,50 @@ namespace Press_Agency_System.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        // [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SmartRegister(RegisterViewModel model)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> SmartRegister(ApplicationUser model, HttpPostedFileBase UploadedImage, String Role)   
         {
+            Role = "Editor";
             var check_user = await UserManager.FindByNameAsync(model.UserName);
             if (check_user == null)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser();
+                if (UploadedImage != null)
+                {
+                    var path = System.IO.Path.Combine(Server.MapPath("~/Content/Persons Images"), UploadedImage.FileName);
+                    UploadedImage.SaveAs(path);
+                    user.PhotoPath = UploadedImage.FileName;
+                }
+                else
+                {
+                    user.PhotoPath = "avatar.svg";
+                }
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.Phone = model.Phone;
+                user.activeUser = true;
+                user.roleType = db.Roles.FirstOrDefault(x => x.Name == Role);
+
+
+
+                var result = await UserManager.CreateAsync(user, model.PasswordHash);
+
+
+
                 if (result.Succeeded)
                 {
+                    if (Role == "Editor")
+                    {
+                        UserManager.AddToRole(user.Id, Roles.Editor);
+                        user.roleType.Name = "Editor";
+                    }
+                    else if (Role == "Viewer")
+                    {
+                        UserManager.AddToRole(user.Id, Roles.Viewer);
+                        user.roleType.Name = "Viewer";
+                    }
                     await SignInAsync(user, isPersistent: false);
                     return Content("true");
                 }
@@ -95,8 +127,6 @@ namespace Press_Agency_System.Controllers
                 }
             }
             else
-
-
 
 
                 // If we got this far, something failed, redisplay form
@@ -187,48 +217,27 @@ namespace Press_Agency_System.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-        [HttpGet]
-        public ActionResult Profile()
+
+        public ActionResult Profile(string id)
         {
-            string userid = User.Identity.GetUserId();
-            var table = db.Posts.Where(x => x.UserId == userid).ToList();//This table contains all the posts done by this user.
-            var tableid = table.Select(x => x.Id);
-            int viewcount = 0;
-            int likecount = 0;
-            var table2 = db.IneractedPosts.Where(x=>tableid.Contains(x.PostId)); //This table should contain all the interactions of this user's posts
-
-
-            List<Post> UserPosts = db.Posts.Where(x => x.UserId == userid).ToList();
-            var user = db.Users.Find(userid);
-
-            viewcount = table2.Count();
-            likecount = table2.Where(x => x.Like == 1).Count();
-
-
-            ProfileViewModel viewmodel = new ProfileViewModel()
+            if(id==null)
             {
-                UserPosts = table,
-                user = db.Users.Find(userid),
-                likecount = likecount,
-                viewcount = viewcount
-
-            };
-
-
-            return View(viewmodel);
-        }
-        [HttpGet]
-        public ActionResult Profile(string userid)
-        {
-            var table = db.Posts.Where(x => x.UserId == userid).ToList();//This table contains all the posts done by this user.
+                id = User.Identity.GetUserId();
+                if(id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            //string userid = User.Identity.GetUserId();
+            var table = db.Posts.Where(x => x.UserId == id).ToList();//This table contains all the posts done by this user.
             var tableid = table.Select(x => x.Id);
             int viewcount = 0;
             int likecount = 0;
             var table2 = db.IneractedPosts.Where(x => tableid.Contains(x.PostId)); //This table should contain all the interactions of this user's posts
 
 
-            List<Post> UserPosts = db.Posts.Where(x => x.UserId == userid).ToList();
-            var user = db.Users.Find(userid);
+            List<Post> UserPosts = db.Posts.Where(x => x.UserId == id).ToList();
+            var user = db.Users.Find(id);
 
             viewcount = table2.Count();
             likecount = table2.Where(x => x.Like == 1).Count();
@@ -237,7 +246,7 @@ namespace Press_Agency_System.Controllers
             ProfileViewModel viewmodel = new ProfileViewModel()
             {
                 UserPosts = table,
-                user = db.Users.Find(userid),
+                user = db.Users.Find(id),
                 likecount = likecount,
                 viewcount = viewcount
 
@@ -246,6 +255,36 @@ namespace Press_Agency_System.Controllers
 
             return View(viewmodel);
         }
+        //[AllowAnonymous]
+        //[HttpGet]
+        //public ActionResult Profile(string userid)
+        //{
+        //    var table = db.Posts.Where(x => x.UserId == userid).ToList();//This table contains all the posts done by this user.
+        //    var tableid = table.Select(x => x.Id);
+        //    int viewcount = 0;
+        //    int likecount = 0;
+        //    var table2 = db.IneractedPosts.Where(x => tableid.Contains(x.PostId)); //This table should contain all the interactions of this user's posts
+
+
+        //    List<Post> UserPosts = db.Posts.Where(x => x.UserId == userid).ToList();
+        //    var user = db.Users.Find(userid);
+
+        //    viewcount = table2.Count();
+        //    likecount = table2.Where(x => x.Like == 1).Count();
+
+
+        //    ProfileViewModel viewmodel = new ProfileViewModel()
+        //    {
+        //        UserPosts = table,
+        //        user = db.Users.Find(userid),
+        //        likecount = likecount,
+        //        viewcount = viewcount
+
+        //    };
+
+
+        //    return View(viewmodel);
+        //}
 
         //
         // POST: /Account/ExternalLogin

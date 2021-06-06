@@ -49,27 +49,31 @@
                         <hr>
                         <h6 class="f-w-600 m-t-25 m-b-10 ">UserName:</h6>
                         <div class="form-group">
-                            @Html.EditorFor(m => m.UserName,new{ @class= "form-control" })
+                            @Html.EditorFor(m => m.UserName, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.UserName)
 
                         </div>
 
                         <hr>
 
-                        
+
                         @if (this.User.IsInRole("Admin"))
                         {
+
                             <h6 class="f-w-600 m-t-25 m-b-10">RoleOfUser:</h6>
-                        <div>
-                            <select name="userrole">
-                                <option value="Admin">Admin</option>
-                                <option value="Editor">Editor</option>
-                                <option value="Viewer">Viewer</option>
+                            <div>
+                                <select name="userrole">
+                                    <option value="none" selected disabled hidden>
+                                        change user role
+                                    </option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Editor">Editor</option>
+                                    <option value="Viewer">Viewer</option>
 
-                            </select>
+                                </select>
 
-                        </div>
-                        <hr>
+                            </div>
+                            <hr>
                         }
 
                         <input type="submit" value="Edit" class="btn btn-default" />
@@ -100,6 +104,20 @@
         };
 
 
+            //window.onload = function () {
+            //    var ele = document.getElementById("ErrorMessage").innerHTML;
+            //    if (ele == "This username is used") {
+            //        alert("This username is used");
+            //    } else if (ele == "Updated Successfull") {
+            //        alert("Updated Successfull");
+            //    }
+            //    document.getElementById("ErrorMessage").innerHTML = " ";
+
+            //}
+            //window.onload = function () {
+            //    var ele = document.getElementById("rolevalue").innerHTML;
+            //    document.getElementById("getvalue").innerHTML = ele;
+            //}
 
 
     </script>

@@ -16,7 +16,7 @@
                         <img src="~/Content/Persons Images/defaultuserphoto.jpg" class="img-radius" alt="User-Profile-Image">
                     </div>
                     @using (Html.BeginForm())
-            {
+                    {
                         @Html.ValidationSummary(true)
                         <h6 class="f-w-600 m-t-25 m-b-10 ">FirstName:</h6>
                         <div>
@@ -53,16 +53,13 @@
 
                         <hr>
 
-                        <h6 class="f-w-600 m-t-25 m-b-10">RoleOfUser:</h6>
-                        <div>
-                            <select id="vvvrole" name="userrole">
-                                <option value="Admin">Admin</option>
-                                <option value="Editor">Editor</option>
-                                <option value="Viewer">Viewer</option>
+                        @*<h6 class="f-w-600 m-t-25 m-b-10">RoleOfUser:</h6>
+                            <div>
+                                @Html.EditorFor(m => m.roleType.Name)
+                                @Html.ValidationMessageFor(m => m.roleType)
 
-                            </select>
-                        </div>
-                        <hr>
+                            </div>
+                            <hr>*@
 
                         <div class="form-actions no-color">
                             <input type="submit" value="Delete" class="btn btn-default" />

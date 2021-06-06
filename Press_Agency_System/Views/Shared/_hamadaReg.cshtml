@@ -331,8 +331,10 @@
     <div class="modal-content">
         <div class="row">
             <div class="col-md-12">
-                    <section id="Regform">
+                <section id="Regform">
+                    
                         <form id="Reg_form" method="post">
+                            <!--Begin form-->
                             @Html.AntiForgeryToken()
                             <div class="Regs-content">
 
@@ -356,7 +358,7 @@
                                             </div>
                                         </div>
                                         @Html.ValidationMessageFor(m => m.FirstName)
-                                     </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="input-div one">
                                             <div class="i">
@@ -366,21 +368,21 @@
                                                 <h5>Last Name</h5>
                                                 @Html.TextBoxFor(m => m.LastName, new { @class = "input", name = "LastName", id = "LastName" })
                                             </div>
-                                         </div>
+                                        </div>
                                         @Html.ValidationMessageFor(m => m.LastName)
-                                     </div>
+                                    </div>
                                 </div>
-                                                   
+
                                 <div class="input-div one">
                                     <div class="i">
                                         <i class="fas fa-user"></i>
                                     </div>
                                     <div class="div">
                                         <h5>Username</h5>
-                                        @Html.TextBoxFor(m => m.UserName, new { @class = "input", name = "UserName", id = "UserName"})
-                                        
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "input", name = "UserName", id = "UserName" })
+
                                     </div>
-                                </div>    
+                                </div>
                                 @Html.ValidationMessageFor(m => m.UserName)
                                 <div class="input-div one">
                                     <div class="i">
@@ -411,20 +413,20 @@
                                     <div class="div">
                                         <h5>Password</h5>
                                         @Html.PasswordFor(m => m.Password, new { @class = "input", name = "Password", id = "Password" })
-                                        
+
                                     </div>
                                 </div>
-                                @Html.ValidationMessageFor(m => m.Password)  
-                                 <div class="input-div pass">
+                                @Html.ValidationMessageFor(m => m.Password)
+                                <div class="input-div pass">
                                     <div class="i">
                                         <i class="fas fa-lock"></i>
                                     </div>
                                     <div class="div">
                                         <h5>ConfirmPassword</h5>
-                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input", name = "ConfirmPassword", id = "ConfirmPassword" }) 
+                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input", name = "ConfirmPassword", id = "ConfirmPassword" })
                                     </div>
                                 </div>
-                                @Html.ValidationMessageFor(m => m.ConfirmPassword)   
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword)
 
 
                                 <div class="wrapper" id="wrapper-1">
@@ -438,17 +440,16 @@
                                         <div class="dot"></div>
                                         <span>Viewer</span>
                                     </label>
-                                </div>     
+                                </div>
                                 <input type="hidden" name="select" id="radiobutton" />
-                             
+
                                 @Html.ValidationSummary(true)
                                 <p id="error-field" style="color:red; font-size:14px;"></p>
-                                @Html.AntiForgeryToken()
 
 
                                 <input type="submit" value="Regstier" class="btn-regs" id="test" />
                             </div>
-                        </form>
+                        </form><!--end form-->
                     </section>
                 </div>
             </div>

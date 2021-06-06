@@ -255,7 +255,6 @@ C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\bin\Micr
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.csprojAssemblyReference.cache
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.InitialCreate.resources
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.AddMainTables.resources
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.modifyingTables.resources
@@ -271,3 +270,4 @@ C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debu
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.csproj.CopyComplete
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.dll
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.pdb
+C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.csprojAssemblyReference.cache

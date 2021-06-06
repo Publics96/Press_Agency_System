@@ -1,7 +1,10 @@
 ﻿@using Microsoft.AspNet.SignalR;
 
+
+<link href="~/Content/chat-box-style.css" rel="stylesheet" />
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-<div class="row">
+<div class="row" style="margin-left: 10px; display: flex; flex-direction: row; flex-wrap: wrap;">
     <div class="px-2" style="width: 20%; float: left;">
 
         <h4 class="mb-4 px-3 font-size-16">Chat List</h4>
@@ -11,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="chat-container" style="width: 80%; height: 100%; float: left;">
+    <div class="chat-container" style="width: 79%; height: 100%; float: left;">
 
     </div>
 
@@ -25,14 +28,12 @@
         $(function () {
             var hub = $.connection.chatHub;
             hub.client.broadcastUsersToChat = function (listUsers) {
-                $('.chat-user-list').html('');
+                $('.users-list').html('');
                 for (var i = 0; i < listUsers.length; i++) {
-                    let online = listUsers[i].IsOnline ? '<i class="fa fa-circle"></i>' : "";
-
-                    $('.chat-user-list').append('<div id="UserBox-' + listUsers[i].UserId + '" class="user-box" onclick="openChatBox(\'' + listUsers[i].UserId + '\')" style="padding: 15px 15px;">\
-                            <div class="chat-user-img align-self-center me-3 ms-0" style="position: relative;"><img src="/Content/Persons Images/' + listUsers[i].Photo + '" style="border-radius: 50%;" width="75px"></div>\
-                        <h5 class="text-truncate font-size-15 mb-1" style="color: #495057; font-family: sans-serif; font-weight: 600; line-height: 1.8;">' + listUsers[i].FullName + '</h5>\
-                        <span class="is-online">' + online + '</span> </div> ');
+                    $('.users-list').append('<div id="UserBox-' + listUsers[i].UserId + '" class="user-box" onclick="openChatBox(\'' + listUsers[i].UserId + '\')" style="padding: 15px 15px; cursor: pointer;">\
+                            <img class="avatar-md" src="/Content/Persons Images/' + listUsers[i].Photo + '" style="border-radius: 50%;" width="75px">\
+                            <h5 class="text-truncate font-size-15 mb-1" style="color: #495057; font-family: sans-serif; font-weight: 600; line-height: 1.8; display: inline-block;">' + listUsers[i].FullName + '</h5>\
+                             </div> ');
                 }
             };
             hub.connection.start().done(function () {
@@ -50,6 +51,7 @@
 
         });
         function openChatBox(toUserId) {
+            $('.chat-container').html('');
             $.ajax({
                 url: '/Message/GetChatBox',
                 type: 'POST',

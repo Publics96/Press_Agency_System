@@ -68,6 +68,7 @@ btnn.onclick = function ()
         if ($('#UserName').val() != '' && $('#Password').val() != '' && $('#ConfirmPassword').val() != '') {
             var form = $('#Reg_form');
             var lData = $('#Reg_form').serialize();
+            var token = $('input[name="__RequestVerificationToken"]', form).val();
             $.ajax({
                 url: '/Account/SmartRegister/',
                 type: 'POST',

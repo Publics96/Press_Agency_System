@@ -1,4 +1,4 @@
-﻿@model ProfileViewModel 
+﻿@model ProfileViewModel
 @using System;
 @using Press_Agency_System.Models;
 @using Press_Agency_System.Controllers;
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/Content/profile-style.css" />
 </head>
 <body>
-    
+
     <section id="content" class="container">
         <!-- Begin .page-heading -->
         <div class="page-heading">
@@ -136,25 +136,25 @@
                     </div>
                 </div>
                 @*<div class="panel">
-                    <div class="panel-heading">
-                        <span class="panel-icon">
-                            <i class="fa fa-trophy"></i>
-                        </span>
-                        <span class="panel-title"> My Skills</span>
-                    </div>
-                    <div class="panel-body pb5">
-                        <span class="label label-warning mr5 mb10 ib lh15">Default</span>
-                        <span class="label label-primary mr5 mb10 ib lh15">Primary</span>
-                        <span class="label label-info mr5 mb10 ib lh15">Success</span>
-                        <span class="label label-success mr5 mb10 ib lh15">Info</span>
-                        <span class="label label-alert mr5 mb10 ib lh15">Warning</span>
-                        <span class="label label-system mr5 mb10 ib lh15">Danger</span>
-                        <span class="label label-info mr5 mb10 ib lh15">Success</span>
-                        <span class="label label-success mr5 mb10 ib lh15">Ui Design</span>
-                        <span class="label label-primary mr5 mb10 ib lh15">Primary</span>
+                        <div class="panel-heading">
+                            <span class="panel-icon">
+                                <i class="fa fa-trophy"></i>
+                            </span>
+                            <span class="panel-title"> My Skills</span>
+                        </div>
+                        <div class="panel-body pb5">
+                            <span class="label label-warning mr5 mb10 ib lh15">Default</span>
+                            <span class="label label-primary mr5 mb10 ib lh15">Primary</span>
+                            <span class="label label-info mr5 mb10 ib lh15">Success</span>
+                            <span class="label label-success mr5 mb10 ib lh15">Info</span>
+                            <span class="label label-alert mr5 mb10 ib lh15">Warning</span>
+                            <span class="label label-system mr5 mb10 ib lh15">Danger</span>
+                            <span class="label label-info mr5 mb10 ib lh15">Success</span>
+                            <span class="label label-success mr5 mb10 ib lh15">Ui Design</span>
+                            <span class="label label-primary mr5 mb10 ib lh15">Primary</span>
 
-                    </div>
-                </div>*@
+                        </div>
+                    </div>*@
                 <div class="panel">
                     <div class="panel-heading">
                         <span class="panel-icon">
@@ -164,24 +164,24 @@
                     </div>
                     <div class="panel-body pb5">
 
-                        <h6>Email</h6> 
+                        <h6>Email</h6>
 
                         <h4>@Model.user.Email</h4>
-                        
+
 
                         <hr class="short br-lighter">
 
                         <h6>Phone Number</h6>
 
                         <h4>@Model.user.Phone</h4>
-                        
+
 
                         @*<hr class="short br-lighter">
 
-                        <h6>Accomplishments</h6>
+                            <h6>Accomplishments</h6>
 
-                        <h4>Successful Business</h4>*@
-                        
+                            <h4>Successful Business</h4>*@
+
 
                     </div>
                 </div>
@@ -202,36 +202,36 @@
                     </ul>
                     <div class="tab-content p30" style="height: 730px;">
                         <div id="tab1" class="tab-pane active">
-                            @if(Model.UserPosts.Where(x=>x.State == PostState.Accepted).Count()==0)
+                            @if (Model.UserPosts.Where(x => x.State == PostState.Accepted).Count() == 0)
                             {
                                 <center><h3>There are no posts to view</h3></center>
                             }
                             else
-                            { 
-                            foreach (var i in Model.UserPosts.Where(x => x.State == PostState.Accepted))
                             {
-                                <div style="border:solid 0.5px;border-radius:5px;border-color:khaki;padding:15px;margin-bottom:15px;">
+                                foreach (var i in Model.UserPosts.Where(x => x.State == PostState.Accepted))
+                                {
+                                    <div style="border:solid 0.5px;border-radius:5px;border-color:khaki;padding:15px;margin-bottom:15px;">
 
-                                    <div class="media">
-                                        <a class="pull-left" href="#"> <img style="border-radius:100%;width:40px;height:40px;margin-bottom:20px;" src="~/Content/Persons Images/@Model.user.PhotoPath" alt="..."> </a>
-                                        <div class="media-body" style="margin-bottom:20px;">
-                                            <h4 class="media-heading mb5" style="margin-top:10px">
-                                                @(Model.user.FirstName + " "+ Model.user.LastName) <small>Posted at</small>
-                                                <small> @(i.PostDate.ToString("dd MMMM yyyy HH:mm")) </small>
-                                            </h4>
+                                        <div class="media">
+                                            <a class="pull-left" href="#"> <img style="border-radius:100%;width:40px;height:40px;margin-bottom:20px;" src="~/Content/Persons Images/@Model.user.PhotoPath" alt="..."> </a>
+                                            <div class="media-body" style="margin-bottom:20px;">
+                                                <h4 class="media-heading mb5" style="margin-top:10px">
+                                                    @(Model.user.FirstName + " "+ Model.user.LastName) <small>Posted at</small>
+                                                    <small> @(i.PostDate.ToString("dd MMMM yyyy HH:mm")) </small>
+                                                </h4>
 
 
-                                        </div>
-                                        <div>
-                                            <a href="@Url.Action("Details","Post",new { id = i.Id })">
-                                                <img src="~/Content/Posts Images/@i.ImagePath"  style="width:100%;"/>
-                                                <h1>@i.PostTitle</h1>
-                                            </a>
+                                            </div>
+                                            <div>
+                                                <a href="@Url.Action("Details","Post",new { id = i.Id })">
+                                                    <img src="~/Content/Posts Images/@i.ImagePath" style="width:100%;" />
+                                                    <h1>@i.PostTitle</h1>
+                                                </a>
+                                            </div>
+
                                         </div>
 
                                     </div>
-
-                                </div>
 
                                 }
                             }

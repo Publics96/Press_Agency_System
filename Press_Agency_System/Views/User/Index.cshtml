@@ -85,7 +85,7 @@
 
                         <div class="form-group">
                             <input type="submit" value="AddUser" class="btn btn-default" />
-                            <p>@TempData["mess"]</p>
+                            <p id="ErrorMessage">@TempData["mess"]</p>
 
                         </div>
 
@@ -149,33 +149,33 @@
         var form_data;
 
         $(document).ready(function () {
-            var myt= $("#u").DataTable(
-                       {
-                           selected: true,
-                           searchHighlight: true,
-                           "ajax": {
-                               "url": "/User/AllUsers",
-                               "type": "GET",
-                               "datatype": "json"
-                           },
-                           "columns": [
-                               //{data: "Id"},
-                               { data: "FirstName" },
-                               { data: "LastName" },
-                               { data: "Email" },
-                               { data: "Phone" },
-                               { data: "UserName" },
-                               { data: "roleType.Name" },
+            var myt = $("#u").DataTable(
+                {
+                    selected: true,
+                    searchHighlight: true,
+                    "ajax": {
+                        "url": "/User/AllUsers",
+                        "type": "GET",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        //{data: "Id"},
+                        { data: "FirstName" },
+                        { data: "LastName" },
+                        { data: "Email" },
+                        { data: "Phone" },
+                        { data: "UserName" },
+                        { data: "roleType.Name" },
 
-                               {
-                                   //data: null,
-                                   //defaultContent: '<a href="#">Edit</a> | </a><a href="#">Delete</a>'
-                                   render: function (data, type, user) { return "<a href='/User/Edit/" + user.Id + "'/>" + "Edit" + "</a>" +" | "+ "<a href='/User/Delete/" + user.Id + "'/>" + "Delete"; },
+                        {
+                            //data: null,
+                            //defaultContent: '<a href="#">Edit</a> | </a><a href="#">Delete</a>'
+                            render: function (data, type, user) { return "<a href='/User/Edit/" + user.Id + "'/>" + "Edit" + "</a>" + " | " + "<a href='/User/Delete/" + user.Id + "'/>" + "Delete"; },
 
-                               }
+                        }
 
-                           ]
-                       });
+                    ]
+                });
             //myt.row({ selected: true });
             myt.rows({ selected: true });
             myt.columns({ selected: true });
@@ -219,8 +219,30 @@
             image.src = URL.createObjectURL(event.target.files[0]);
         };
 
+        //document.getElementById("#ErrorMessage").onchange = errFunc() ;
+        //    //this.style.display = "none";
+        //function errFunc() {
+        //    var ele = document.getElementById(this).innerHTML;
+        //    alert(ele);
+        //};
+
+        window.onload = function () {
+            var ele = document.getElementById("ErrorMessage").innerHTML;
+            if (ele == "invaild username or password") {
+                alert("invaild username or password");
+            } else if (ele == "user added correctly") {
+                alert("user added correctly");
+            }
+            document.getElementById("ErrorMessage").innerHTML = " ";
+
+        }
 
 
+            //$("#ErrorMessage").change(function () {
+            //    var ele = document.getElementById("#ErrorMessage").innerHTML;
+            //    alert(ele);
+
+            //});
 
 
     </script>
