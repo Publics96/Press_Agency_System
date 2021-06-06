@@ -49,15 +49,42 @@ namespace Press_Agency_System.Models
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+
+        [Required(ErrorMessage = "Email id is required")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
+        [StringLength(50, ErrorMessage = "Max 50 characters")]
+        [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Please enter a valid email address")]
+        public string Email { get; set; }
+
+        [MaxLength(50)]
+        public string FirstName { get; set; }
+
+
+        [MaxLength(50)]
+        public string LastName { get; set; }
+
+
+        [Phone]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Not a number")]
+        [RegularExpression(@"^01[0125][0-9]{8}$", ErrorMessage = "Please enter a valid Phone")]
+        public string Phone { get; set; }
+
+
+
+        public string PhotoPath { get; set; }
     }
+
 }

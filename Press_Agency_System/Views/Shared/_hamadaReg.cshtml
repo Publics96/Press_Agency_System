@@ -1,0 +1,491 @@
+﻿@model Press_Agency_System.Models.RegisterViewModel
+@Scripts.Render("~/bundles/jqueryval")
+<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+
+<style rel="stylesheet" type="text/css">
+    .Regs-content {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .img img {
+        height: 200px;
+        width: 200px;
+        border-radius: 100%;
+    }
+
+    .Regs-content img {
+        height: 200px;
+        width: 200px;
+        border-radius: 100%;
+    }
+  
+
+
+    .Regs-content h2 {
+        margin: 15px 0;
+        color: #333;
+        text-transform: uppercase;
+        font-size: 2.9rem;
+    }
+
+    .Regs-content .input-div {
+        position: relative;
+        display: grid;
+        grid-template-columns: 7% 93%;
+        margin: 10px 0;
+        padding: 5px 0;
+        border-bottom: 2px solid #d9d9d9;
+    }
+
+        .Regs-content .input-div.one {
+            margin-top: 0;
+        }
+
+    .i {
+        color: #d9d9d9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .i i {
+            transition: .3s;
+        }
+
+    .input-div > div {
+        position: relative;
+        height: 45px;
+    }
+
+        .input-div > div > h5 {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+            transition: .3s;
+        }
+
+    .input-div:before, .input-div:after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        width: 0%;
+        height: 2px;
+        background-color: #38d39f;
+        transition: .4s;
+    }
+
+    .input-div:before {
+        right: 50%;
+    }
+
+    .input-div:after {
+        left: 50%;
+    }
+
+    .input-div.focus:before, .input-div.focus:after {
+        width: 50%;
+    }
+
+    .input-div.focus > div > h5 {
+        top: -5px;
+        font-size: 15px;
+    }
+
+    .input-div.focus > .i > i {
+        color: #38d39f;
+    }
+
+    .input-div > div > input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background: none;
+        padding: 0.5rem 0.7rem;
+        font-size: 1.2rem;
+        color: #555;
+        font-family: 'poppins', sans-serif;
+    }
+
+    .input-div.pass {
+        margin-bottom: 10px;
+    }
+
+    a {
+        display: block;
+        text-align: right;
+        text-decoration: none;
+        color: #999;
+        font-size: 0.9rem;
+        transition: .3s;
+    }
+
+        a:hover {
+            color: #38d39f;
+        }
+
+    .btn-regs {
+        width: 90%;
+        height: 50px;
+        border-radius: 25px;
+        outline: none;
+        border: none;
+        background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+        background-size: 200%;
+        font-size: 1.2rem;
+        color: #fff;
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+        margin: 1rem 0;
+        cursor: pointer;
+        transition: .5s;
+    }
+
+        .btn-regs:hover {
+            background-position: right;
+        }
+
+
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 4; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 35%;
+        border-radius: 65px;
+    }
+    @@media (min-width: 900px) {
+        .modal-content {
+            max-width: 80%;
+        }
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover, .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    .center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+
+
+
+    .rem {
+        color: #495057;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #555;
+        font-family: 'poppins', sans-serif;
+    }
+
+            p.remember a:hover {
+                color: #fbbb92;
+            }
+
+
+    .signup {
+        align-items: center;
+        padding: 1rem;
+        display: flexbox;
+        font-size: large;
+    }
+
+    .go {
+        align-items: center;
+        font-size:large;
+        display: contents;
+    }
+
+    .lin:hover {
+        cursor: grab;
+    }
+
+
+
+
+    .wrapper {
+        display: inline-flex;
+        background: #fff;
+        height: 100px;
+        width: 300px;
+        align-items: center;
+        justify-content: space-evenly;
+        border-radius: 15px;
+        padding: 20px 15px;
+        box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+    }
+
+        .wrapper .option {
+            background: #fff;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 0 10px;
+            border: 2px solid lightgrey;
+            transition: all 0.3s ease;
+        }
+
+            .wrapper .option .dot {
+                height: 20px;
+                width: 20px;
+                background: #F5F4F2;
+                border-radius: 50%;
+                position: relative;
+            }
+
+                .wrapper .option .dot::before {
+                    position: absolute;
+                    content: "";
+                    top: 4px;
+                    left: 4px;
+                    width: 12px;
+                    height: 12px;
+                    background: #38d39f;
+                    border-radius: 50%;
+                    opacity: 0;
+                    transform: scale(1.5);
+                    transition: all 0.3s ease;
+                }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    #option-1:checked:checked ~ .option-1,
+    #option-2:checked:checked ~ .option-2 {
+        border-color: #38d39f;
+        background: #38d39f;
+    }
+
+        #option-1:checked:checked ~ .option-1 .dot,
+        #option-2:checked:checked ~ .option-2 .dot {
+            background: #fff;
+        }
+
+            #option-1:checked:checked ~ .option-1 .dot::before,
+            #option-2:checked:checked ~ .option-2 .dot::before {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+    .wrapper .option span {
+        font-size: 16px;
+        color: #808080;
+    }
+
+    #option-1:checked:checked ~ .option-1 span,
+    #option-2:checked:checked ~ .option-2 span {
+        color: #fff;
+    }
+
+</style>
+
+
+<div id="modal_signup" class="modal">
+    <div class="modal-content">
+        <div class="row">
+            <div class="col-md-12">
+                    <section id="Regform">
+                        <form id="Reg_form" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="Regs-content">
+
+
+                                <h2 class="title">Welcome</h2>
+
+
+                                <img class="lin" id="OpenImgUpload" src='~/Content/Posts Images/UploadImage.jpg' id="uploadImage">
+                                <input type="file" id="file" onchange="loadFile(event)" style="display:none" name="UploadedImage" />
+
+                                <div class="row row-border">
+                                    <div class="col-md-6">
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>First Name</h5>
+                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "input", name = "FirstName", id = "FirstName" })
+
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.FirstName)
+                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Last Name</h5>
+                                                @Html.TextBoxFor(m => m.LastName, new { @class = "input", name = "LastName", id = "LastName" })
+                                            </div>
+                                         </div>
+                                        @Html.ValidationMessageFor(m => m.LastName)
+                                     </div>
+                                </div>
+                                                   
+                                <div class="input-div one">
+                                    <div class="i">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="div">
+                                        <h5>Username</h5>
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "input", name = "UserName", id = "UserName"})
+                                        
+                                    </div>
+                                </div>    
+                                @Html.ValidationMessageFor(m => m.UserName)
+                                <div class="input-div one">
+                                    <div class="i">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="div">
+                                        <h5>Email</h5>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "input", name = "Email", id = "Email" })
+
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Email)
+                                <div class="input-div one">
+                                    <div class="i">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <div class="div">
+                                        <h5>Phone</h5>
+                                        @Html.TextBoxFor(m => m.Phone, new { @class = "input", name = "Phone", id = "Phone" })
+
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Phone)
+                                <div class="input-div pass">
+                                    <div class="i">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                    <div class="div">
+                                        <h5>Password</h5>
+                                        @Html.PasswordFor(m => m.Password, new { @class = "input", name = "Password", id = "Password" })
+                                        
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Password)  
+                                 <div class="input-div pass">
+                                    <div class="i">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                    <div class="div">
+                                        <h5>ConfirmPassword</h5>
+                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input", name = "ConfirmPassword", id = "ConfirmPassword" }) 
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword)   
+
+
+                                <div class="wrapper" id="wrapper-1">
+                                    <input type="radio" name="select" id="option" value="Editor" checked>
+                                    <input type="radio" name="select" id="option" value="Viewer">
+                                    <label for="option-1" class="option option-1">
+                                        <div class="dot"></div>
+                                        <span>Editor</span>
+                                    </label>
+                                    <label for="option-2" class="option option-2">
+                                        <div class="dot"></div>
+                                        <span>Viewer</span>
+                                    </label>
+                                </div>     
+                                <input type="hidden" name="select" id="radiobutton" />
+                             
+                                @Html.ValidationSummary(true)
+                                <p id="error-field" style="color:red; font-size:14px;"></p>
+                                @Html.AntiForgeryToken()
+
+
+                                <input type="submit" value="Regstier" class="btn-regs" id="test" />
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        <div class="signup">If you already has an account, just -> <a href="#a" class="go" onclick="gotolog()"> Sign in</a>.</div>
+
+    </div>
+</div>
+
+
+
+
+    <script>
+        
+        document.getElementById("OpenImgUpload").onclick = function () {
+            document.getElementById("file").click();
+        }
+        var loadFile = function (event) {
+            var image = document.getElementById('OpenImgUpload');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+        /*var selectedOption = $("input:radio[name=select]:checked").val()*/
+        alert(document.querySelector('input:radio[name=select]:checked').value);
+
+
+
+        $("#option").change(function () {
+            var sel = $(this).val();
+            if (sel == 'single') {
+                $("#radiobutton").val($('#option').val);
+            }
+            if (sel == 'double') {
+                $("#radiobutton").val($('#option').val);
+            }
+        });
+
+
+    </script>
+
+
+

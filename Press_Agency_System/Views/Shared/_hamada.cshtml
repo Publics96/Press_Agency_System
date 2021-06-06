@@ -1,0 +1,343 @@
+﻿@model Press_Agency_System.Models.LoginViewModel
+
+<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+
+<style rel="stylesheet" type="text/css">
+    .login-content {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .img img {
+        height: 200px;
+        width: 200px;
+        border-radius: 100%;
+    }
+    
+
+    .login-content img {
+        height: 200px;
+        width: 200px;
+        border-radius: 100%;
+    }
+
+    .login-content h2 {
+        margin: 15px 0;
+        color: #333;
+        text-transform: uppercase;
+        font-size: 2.9rem;
+    }
+
+    .login-content .input-div {
+        position: relative;
+        display: grid;
+        grid-template-columns: 7% 93%;
+        margin: 10px 0;
+        padding: 5px 0;
+        border-bottom: 2px solid #d9d9d9;
+    }
+
+        .login-content .input-div.one {
+            margin-top: 0;
+        }
+
+    .i {
+        color: #d9d9d9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .i i {
+            transition: .3s;
+        }
+
+    .input-div > div {
+        position: relative;
+        height: 45px;
+    }
+
+        .input-div > div > h5 {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+            transition: .3s;
+        }
+
+    .input-div:before, .input-div:after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        width: 0%;
+        height: 2px;
+        background-color: #38d39f;
+        transition: .4s;
+    }
+
+    .input-div:before {
+        right: 50%;
+    }
+
+    .input-div:after {
+        left: 50%;
+    }
+
+    .input-div.focus:before, .input-div.focus:after {
+        width: 50%;
+    }
+
+    .input-div.focus > div > h5 {
+        top: -5px;
+        font-size: 15px;
+    }
+
+    .input-div.focus > .i > i {
+        color: #38d39f;
+    }
+
+    .input-div > div > input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background: none;
+        padding: 0.5rem 0.7rem;
+        font-size: 1.2rem;
+        color: #555;
+        font-family: 'poppins', sans-serif;
+    }
+
+    .input-div.pass {
+        margin-bottom: 15px;
+    }
+
+    a {
+        display: block;
+        text-align: right;
+        text-decoration: none;
+        color: #999;
+        font-size: 0.9rem;
+        transition: .3s;
+    }
+
+        a:hover {
+            color: #38d39f;
+        }
+
+    .btn-login {
+        width: 90%;
+        height: 50px;
+        border-radius: 25px;
+        outline: none;
+        border: none;
+        background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+        background-size: 200%;
+        font-size: 1.2rem;
+        color: #fff;
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+        margin: 1rem 0;
+        cursor: pointer;
+        transition: .5s;
+    }
+
+        .btn-login:hover {
+            background-position: right;
+        }
+
+
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 5; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+        z-index:5;
+    }
+
+    @@media(max-width: 900px) {
+        .modal-content {
+            width: 70%;
+        }
+    }
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover, .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+
+
+
+    .rem {
+        color: #495057;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #555;
+        font-family: 'poppins', sans-serif;
+    }
+
+            p.remember a:hover {
+                color: #fbbb92;
+            }
+
+    .check-remaind input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .check-remainds {
+        display: block;
+        position: absolute;
+        padding-left: 35px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+
+
+    .check-remainds input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    .checkmarks {
+        position: absolute;
+        top: 0px;
+        left: 0;
+        height: 21px;
+        width: 21px;
+        background-color: #F5F4F2;
+        border-radius: 4px;
+    }
+
+    .check-remainds:hover input ~ .checkmarks {
+        background-color: #38d39f;
+    }
+
+    .check-remainds input:checked ~ .checkmarks {
+        background-color: #38d39f;
+    }
+
+    .checkmarks:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    .check-remainds input:checked ~ .checkmarks:after {
+        display: block;
+    }
+
+    .check-remainds .checkmarks:after {
+        left: 7px;
+        top: 3px;
+        width: 5px;
+        height: 10px;
+        border: solid #fff;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+
+
+
+
+</style>
+
+
+<div id="modal_signin" class="modal">
+    <div class="modal-content">
+        <div class="row">
+            <div class="col-md-12">
+                <section id="loginForm">
+                    <form id="log_form" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="login-content">
+                            <img src="~/Content/Persons Images/avatar.svg">
+                            <h2 class="title">Welcome</h2>
+                            <div class="input-div one">
+                                <div class="i">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="div">
+                                    <h5>Username</h5>
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "input", name = "UserName", id = "UserName" })
+                               </div>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.UserName)
+                            <div class="input-div pass">
+                                <div class="i">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div class="div">
+                                    <h5>Password</h5>
+                                     @Html.PasswordFor(m => m.Password, new { @class = "input", name = "Password", id = "Password" })    
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Password)
+                            <label class="check-remainds">
+                                 @Html.CheckBoxFor(m => m.RememberMe)
+                                <span class="checkmarks"></span>
+                                @Html.LabelFor(m => m.RememberMe, new { @class = "rem " })
+                            </label>
+                            <a href="#">Forgot Password?</a>
+                            @Html.ValidationSummary(true)
+                            <p id="error-field" style="color:red; font-size:14px;"></p>
+                            <input type="submit" value="Login" class="btn-login" id="test" />
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+        <div class="signup">Don't have an account? <a href="#a" class="go" onclick="gotoreg()"> Sign up</a>.</div>
+
+    </div>
+</div>
+
+

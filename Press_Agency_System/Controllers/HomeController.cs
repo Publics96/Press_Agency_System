@@ -16,30 +16,39 @@ namespace Press_Agency_System.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         [AllowAnonymous]
+        public ActionResult Index2()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var posts = db.Posts.Include(e => e.User).Where(x => x.State == PostState.Accepted).ToList();
+            var interactedposts = db.IneractedPosts.ToList();
+
+            return Json(new { posts = posts, interactedposts = interactedposts }, JsonRequestBehavior.AllowGet);
+
+        }
         public ActionResult Index()
         {
-            string userid = User.Identity.GetUserId();
-            var savedposts = db.SavedPosts.Where(x => x.UserId == userid).ToList().Select(x => x.PostId);
-
-            var posts = db.Posts.Include(x=>x.User).Where(x => savedposts.Contains(x.Id)).ToList();
-
-            var interactedposts = db.IneractedPosts.Where(x => savedposts.Contains(x.PostId)).ToList();
-
-            Dictionary<int, int> views = new Dictionary<int, int>();
-            Dictionary<int, int> likes = new Dictionary<int, int>();
-
-            foreach (var i in posts)
+            return View();
+        }
+        public ActionResult Filter(string input)
+        {
+            if (input != null)
             {
-                views[i.Id] = interactedposts.Where(x => x.PostId == i.Id).Count();
-                likes[i.Id] = interactedposts.Where(x => x.PostId == i.Id).Where(x => x.Like == 1).Count();
+                db.Configuration.ProxyCreationEnabled = false;
+                var posts = db.Posts.Include(e => e.User).Where(x => x.State == PostState.Accepted).ToList();
+                var interactedposts = db.IneractedPosts.ToList();
+                var list = posts.Where(e => e.PostType.ToLower().Contains(input) || e.PostTitle.ToLower().Contains(input) || e.User.FirstName.ToLower().Contains(input) || e.User.LastName.ToLower().Contains(input)).ToList();
+                var matched = list.Select(e => e.Id).ToList();
+                if (matched.Count > 0)
+                {
+                    return Json(new { posts = list, interactedposts = interactedposts }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Content("false");
+                }
             }
-            SavedPostsViewModel model = new SavedPostsViewModel()
-            {
-                posts = posts,
-                likes = likes,
-                views = views
-            };
-            return View(model);
+            else
+                return Content("false");
         }
 
         public ActionResult About()

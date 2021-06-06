@@ -475,6 +475,7 @@
     <Content Include="Content\footer-style.css" />
     <Content Include="Content\footer-Dashboard-style.css" />
     <Content Include="Content\login-style.css" />
+    <Content Include="Content\Persons Images\avatar.svg" />
     <Content Include="Content\Persons Images\defaultuserphoto.jpg" />
     <Content Include="Content\Persons Images\person1.jpg" />
     <Content Include="Content\Persons Images\person2.jpg" />
@@ -494,6 +495,7 @@
     <Content Include="Content\Users.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\LoginAndRegstier.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\plugins\basic-css\popup.css" />
@@ -2951,6 +2953,8 @@
     <Content Include="Views\Message\Messages.cshtml" />
     <Content Include="Views\Shared\_ChatBox.cshtml" />
     <Content Include="Views\Post\Notify.cshtml" />
+    <Content Include="Views\Shared\_hamada.cshtml" />
+    <Content Include="Views\Shared\_hamadaReg.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

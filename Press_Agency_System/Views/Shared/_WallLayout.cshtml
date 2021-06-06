@@ -13,6 +13,7 @@
 
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -22,7 +23,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Press Agency", "Index", "Home", null, new { @class = "navbar-brand" })
-                
+
             </div>
             <div class="navbar-collapse collapse">
                 <div class="col-sm-3 col-md-3">
@@ -45,7 +46,17 @@
             </div>
         </div>
     </div>
+    <div class="registerpart">
+        @Html.Partial("_hamada")
+    </div>
+    <div class="loginpart">
+        @Html.Partial("_hamadaReg")
+    </div>
+
+
+
     <div class="container body-content">
+
         @RenderBody()
         <hr />
     </div>
@@ -110,5 +121,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/LoginAndRegstier.js"></script>
 </body>
 </html>
