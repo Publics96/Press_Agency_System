@@ -2,54 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Press_Agency_System.Models;
 
 namespace Press_Agency_System.Observer
 {
     public class Subject : ISubject
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private List<IObserver> observers = new List<IObserver>();
-        private string ProductName { get; set; }
-        private int ProductPrice { get; set; }
-        private string Availability { get; set; }
-        public Subject(string productName, int productPrice, string availability)
+        private Post post;
+        public Subject(Post post)
         {
-            ProductName = productName;
-            ProductPrice = productPrice;
-            Availability = availability;
+            this.post = post;
         }
 
-        public string getAvailability()
+
+        public void RegisterObserver(Observers observer)
         {
-            return Availability;
+            db.observers.Add(observer);
+            db.SaveChanges();
         }
-        public void setAvailability(string availability)
+        public void RemoveObserver(Observers observer)
         {
-            this.Availability = availability;
-            Console.WriteLine("Availability changed from Out of Stock to Available.");
-            NotifyObservers();
-        }
-        public void RegisterObserver(IObserver observer)
-        {
-            Console.WriteLine("Observer Added : " + ((Observer)observer).UserName);
-            observers.Add(observer);
-        }
-        public void AddObservers(IObserver observer)
-        {
-            observers.Add(observer);
-        }
-        public void RemoveObserver(IObserver observer)
-        {
-            observers.Remove(observer);
+            db.observers.Remove(observer);
+            db.SaveChanges();
         }
         public void NotifyObservers()
         {
-            Console.WriteLine("Product Name :"
-                            + ProductName + ", product Price : "
-                            + ProductPrice + " is Now available. So notifying all Registered users ");
-            Console.WriteLine();
-            foreach (IObserver observer in observers)
+            string message = post.PostTitle + " in " + post.PostType + " is out now!, check it out!.";
+            
+            var tablex = db.observers.ToList();
+            if(tablex == null || tablex.Count()==0)
             {
-                observer.update(Availability);
+                return;
+            }
+
+            foreach (var i in tablex)
+            {
+                i.update(message);
             }
         }
     }

@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNet.SignalR;
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+<div class="row">
+    <div class="px-2" style="width: 20%; float: left;">
+
+        <h4 class="mb-4 px-3 font-size-16">Chat List</h4>
+        <div class="chat-message-list" style="max-height: 100%;">
+            <div class="list-unstyled chat-list chat-user-list users-list">
+                Users List
+            </div>
+        </div>
+    </div>
+    <div class="chat-container" style="width: 80%; height: 100%; float: left;">
+
+    </div>
+
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery.signalR-2.4.2.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function () {
+            var hub = $.connection.chatHub;
+            hub.client.broadcastUsersToChat = function (listUsers) {
+                $('.chat-user-list').html('');
+                for (var i = 0; i < listUsers.length; i++) {
+                    let online = listUsers[i].IsOnline ? '<i class="fa fa-circle"></i>' : "";
+
+                    $('.chat-user-list').append('<div id="UserBox-' + listUsers[i].UserId + '" class="user-box" onclick="openChatBox(\'' + listUsers[i].UserId + '\')" style="padding: 15px 15px;">\
+                            <div class="chat-user-img align-self-center me-3 ms-0" style="position: relative;"><img src="/Content/Persons Images/' + listUsers[i].Photo + '" style="border-radius: 50%;" width="75px"></div>\
+                        <h5 class="text-truncate font-size-15 mb-1" style="color: #495057; font-family: sans-serif; font-weight: 600; line-height: 1.8;">' + listUsers[i].FullName + '</h5>\
+                        <span class="is-online">' + online + '</span> </div> ');
+                }
+            };
+            hub.connection.start().done(function () {
+                hub.server.getUsersToChat();
+            });
+
+            hub.client.broadcastRecieveMessage = function (userId, message) {
+                if ($('#DVChatBox-' + userId).length === 0) {
+                    openChatBox(userId);
+                } else {
+                    $('#DVChatBox-' + userId).find('.messages-list').append('<div class="dvmsg dvmsg-to"><span class="msg">' + message + '</span></div>');
+                }
+                $('#DVChatBox-' + userId).find('.messages-list').scrollTop(999999999999);
+            }
+
+        });
+        function openChatBox(toUserId) {
+            $.ajax({
+                url: '/Message/GetChatBox',
+                type: 'POST',
+                datatype1: 'JSON',
+                contentType: 'application/json;charset=utf-8;',
+                data: JSON.stringify({ toUserId: toUserId }),
+                async: true,
+                success: function (res) {
+                    if ($('#DVChatBox-' + toUserId).length === 0) {
+                        $('.chat-container').append(res);
+                    } else {
+                        $('.chat-container').find('#DVChatBox-' + toUserId).replaceWith(res);
+                    }
+                    $('#DVChatBox-' + toUserId).find('.messages-list').scrollTop(9999999);
+
+                }
+            });
+        }
+
+    </script>
+}

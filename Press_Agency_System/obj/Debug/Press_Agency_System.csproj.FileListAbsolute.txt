@@ -260,8 +260,12 @@ C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debu
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.AddMainTables.resources
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.modifyingTables.resources
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.updateColumnsforPostTable.resources
+C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.addMessageTable.resources
+C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.testmirationforchat.resources
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.addroletype.resources
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.activeuserattribute.resources
+C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.AddObserversTable.resources
+C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.Migrations.ConnectTables.resources
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.csproj.GenerateResource.cache
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.csproj.CoreCompileInputs.cache
 C:\Users\mario\Documents\GitHub\Press_Agency_System\Press_Agency_System\obj\Debug\Press_Agency_System.csproj.CopyComplete

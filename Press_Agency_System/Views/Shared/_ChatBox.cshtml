@@ -1,0 +1,76 @@
+﻿@model Press_Agency_System.Models.ChatBoxModel
+
+
+<div class="chat-box" id="DVChatBox-@Model.ToUser.Id" style="width: 100%;">
+    <div class="d-lg-flex">
+        <div class="w-100">
+            <div class="p-3 p-lg-4 border-bottom" style="border-bottom: 1px solid #f0eff5; padding-bottom: 10px; background-color: gainsboro;">
+                <div class="align-items-center row">
+                    <div class="col-8 ">
+                        <div class="flex-1 overflow-hidden" style="padding: 30px; width: 100%; padding-top: 15px;">
+                            <img src="~/Content/Persons Images/person1.jpg" style="border-radius: 50%; margin-right: 0px; padding-right: 0px; float: left;" width="75px" />
+                            <h4 class="font-size-14 mb-0 text-truncate" style="margin:0px; float: left; margin-left:15px; margin-top: 25px; font-weight: 700;">
+                                @Model.ToUser.FirstName @Model.ToUser.LastName
+                            </h4>
+                            <b style="float: right; cursor: pointer;"><i aria-hidden="true" onclick="CloseChatBox(this)">X</i></b>
+                            @Html.HiddenFor(m => m.ToUser.Id, new { @id = "ToUserId" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-conversation p-3 p-1 g-4">
+        <div class="simplebar-wrapper">
+            <ul class="list-unstyled mb-0 messages-list">
+                @foreach (var message in Model.Messages)
+                {
+
+                    <li>
+                        <div class="dvmsg dvmsg-@message.Class">
+                            <div class="user-chat-content" style="display: flex; margin-bottom: 10px; padding: 12px 20px; color: #fff; position: relative;">
+                                <div class="dvmsg dvmsg-@message.Class" style="max-width: 30%;"><span class="msg">@message.Message</span></div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="d-lg-flex" style="width: 100%;">
+        <input id="txtMessage" placeholder="Enter Message..." type="text" class="form-control form-control-lg bg-light border-light message-input form-control" style="border-color: #e6ebf5; padding: .5rem 1rem; font-size: 12px; border-radius: .4rem; margin-right: 0px; float: left; height: 50px; width: 70%;" onkeyup="sendMessage(this, event);" />
+           
+        <input type="submit" onclick="sendMessagess();" class="font-size-16 btn-lg chat-send waves-effect waves-light btn btn-primary" id="btnSend" value="Send Message" style="padding: 7px; float: right; border-radius: 5%; margin: 0px;" />
+    </div>
+</div>
+
+
+<script>
+    function sendMessage(element, e) {
+        let message = $(element).val().trim();
+        let toUserId = $(element).closest('.chat-box').find('#ToUserId').val();
+
+        if (!message) { $(element).val(''); return; };
+        if (e.which == 13) {
+            $.ajax({
+                url: '/Message/SendMessage',
+                type: 'POST',
+                datatype: 'JSON',
+                contentType: 'application/json;charset=urf-8;',
+                data: JSON.stringify({ toUserId: toUserId, message: message }),
+                async: true,
+                success: function (res) {
+                    if (res == true) {
+                        $(element).closest('#DVChatBox-' + toUserId).find('.messages-list').append('<div class="dvmsg dvmsg-from"><span class="msg">' + message + '</span></div>')
+                        $(element).closest('#DVChatBox-' + toUserId).find('.messages-list').scrollTop(9999999);
+                        $(element).val('');
+                    }
+                }
+            });
+        }
+    }
+    function CloseChatBox(element) {
+        $(element).closest('.chat-box').remove();
+    }
+        
+</script>

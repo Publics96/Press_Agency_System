@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Press_Agency_System.Models;
+using Press_Agency_System.Observer;
+using Press_Agency_System.Services;
 
 namespace Press_Agency_System.Controllers
 {
@@ -416,6 +418,10 @@ namespace Press_Agency_System.Controllers
             db.Entry(post).State = EntityState.Modified;
             db.SaveChanges();
 
+            Subject sub = new Subject(post);
+            sub.NotifyObservers();
+
+
             return RedirectToAction("Moderation");
         }
 
@@ -478,6 +484,31 @@ namespace Press_Agency_System.Controllers
             }
 
             return false;
+        }
+        public ActionResult Notify()
+        {
+            return View();
+        }
+        public ActionResult NotifyAccept()
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            if (user == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                Observers o = new Observers(user.Id, new Subject(null));
+            }
+
+            return RedirectToAction("Index");
+        }
+        public ActionResult NotifyReject()
+        {
+            var observer = db.observers.Find(User.Identity.GetUserId());
+            db.observers.Remove(observer);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

@@ -183,12 +183,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\RSSController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Iterator\Client.cs" />
     <Compile Include="Migrations\202105181209434_InitialCreate.cs" />
     <Compile Include="Migrations\202105181209434_InitialCreate.Designer.cs">
@@ -206,6 +208,14 @@
     <Compile Include="Migrations\202106011335069_updateColumnsforPostTable.Designer.cs">
       <DependentUpon>202106011335069_updateColumnsforPostTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106022047384_addMessageTable.cs" />
+    <Compile Include="Migrations\202106022047384_addMessageTable.designer.cs">
+      <DependentUpon>202106022047384_addMessageTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106031108003_testmirationforchat.cs" />
+    <Compile Include="Migrations\202106031108003_testmirationforchat.designer.cs">
+      <DependentUpon>202106031108003_testmirationforchat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202106050753027_addroletype.cs" />
     <Compile Include="Migrations\202106050753027_addroletype.Designer.cs">
       <DependentUpon>202106050753027_addroletype.cs</DependentUpon>
@@ -214,10 +224,21 @@
     <Compile Include="Migrations\202106051033021_activeuserattribute.Designer.cs">
       <DependentUpon>202106051033021_activeuserattribute.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106051943171_AddObserversTable.cs" />
+    <Compile Include="Migrations\202106051943171_AddObserversTable.designer.cs">
+      <DependentUpon>202106051943171_AddObserversTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106060749332_ConnectTables.cs" />
+    <Compile Include="Migrations\202106060749332_ConnectTables.Designer.cs">
+      <DependentUpon>202106060749332_ConnectTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ChatBoxModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InteractedPosts.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageDTO.cs" />
     <Compile Include="Models\ModerationViewModel.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostCategories.cs" />
@@ -228,11 +249,13 @@
     <Compile Include="Models\RSSPost.cs" />
     <Compile Include="Models\SavedPosts.cs" />
     <Compile Include="Models\SavedPostsViewModel.cs" />
+    <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Observer\IObserver.cs" />
     <Compile Include="Observer\ISubject.cs" />
-    <Compile Include="Observer\Observer.cs" />
+    <Compile Include="Observer\Observers.cs" />
     <Compile Include="Observer\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AppServices.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2925,6 +2948,9 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\RSS\Index.cshtml" />
+    <Content Include="Views\Message\Messages.cshtml" />
+    <Content Include="Views\Shared\_ChatBox.cshtml" />
+    <Content Include="Views\Post\Notify.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2949,11 +2975,23 @@
     <EmbeddedResource Include="Migrations\202106011335069_updateColumnsforPostTable.resx">
       <DependentUpon>202106011335069_updateColumnsforPostTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106022047384_addMessageTable.resx">
+      <DependentUpon>202106022047384_addMessageTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106031108003_testmirationforchat.resx">
+      <DependentUpon>202106031108003_testmirationforchat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106050753027_addroletype.resx">
       <DependentUpon>202106050753027_addroletype.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106051033021_activeuserattribute.resx">
       <DependentUpon>202106051033021_activeuserattribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051943171_AddObserversTable.resx">
+      <DependentUpon>202106051943171_AddObserversTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060749332_ConnectTables.resx">
+      <DependentUpon>202106060749332_ConnectTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

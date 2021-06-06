@@ -1,0 +1,19 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Notify</title>
+</head>
+<body>
+    <div> 
+        <h1>do you want to be notified?</h1>
+        <a href="@Url.Action("NotifyAccept","Post")">Accept</a>|<a href="@Url.Action("NotifyReject","Post")">Refuse</a>
+    </div>
+</body>
+</html>

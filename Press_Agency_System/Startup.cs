@@ -14,6 +14,7 @@ namespace Press_Agency_System
         {
             ConfigureAuth(app);
             CreationOfDefaultRoles();
+            app.MapSignalR();
             //AddUsers();
 
         }
