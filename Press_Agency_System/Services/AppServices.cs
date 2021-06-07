@@ -26,51 +26,23 @@ namespace Press_Agency_System.Services
         {
             var userId = HttpContext.Current.User.Identity.Name;
             return _Context.Users
-            .Where(x => x.Id != userId)    
+            .Where(x => x.Id != userId)
             .Select(x => new UserDTO
             {
                 UserId = x.Id,
                 UserName = x.UserName,
                 FullName = x.FirstName + " " + x.LastName,
                 Photo = x.PhotoPath,
-                IsOnline = true
             }).ToList();
         }
 
-        internal string RemoveUserConnection(string v)
-        {
-            throw new NotImplementedException();
-        }
 
-        /*internal ChatBoxModel GetChatbox(string toUserId)
-        {
-            var userId = HttpContext.Current.User.Identity.Name;
-            var toUser = _Context.Users.FirstOrDefault(x => x.Id == toUserId);
-            //var messages = _Context.Message.Where(x => (x.(int.Parse(FromUser)) == userId && x.(int.Parse(ToUser)) == toUserId) || (x.(int.Parse(FromUser)) == toUserId && x.(int.Parse(ToUser)) == userId)).ToList();
-            var messages = _Context.Message.Where(x => (x.FromUser.Id == userId && x.ToUser.Id == toUserId) || (x.FromUser.Id == toUserId && x.ToUser.Id == userId))
-                .OrderByDescending(x => x.Date)
-                .Skip(0)
-                .Take(50)
-                .Select(x => new MessageDTO
-                {
-                    Message = x.Message1,
-                    Class = x.FromUser.Id == userId ? "from" : "to",
-                })
-                .ToList();
-            return new ChatBoxModel
-            {
-
-                ToUser = toUser,
-                Messages = messages,
-            };
-
-        }*/
 
         internal bool SendMessage(string toUserId, string message)
         {
             try
             {
-                //var USER_ID = HttpContext.Current.User.Identity.Name;
+
                 var USER_ID = HttpContext.Current.User.Identity.GetUserId();
                 _Context.Message.Add(new Message
                 {
@@ -99,11 +71,12 @@ namespace Press_Agency_System.Services
             return userId;
         }
 
-       
+
         internal IList<string> GetUserConnections(string userId)
         {
             return _Context.UserConnections.Where(x => x.UserId.Id == userId).Select(x => x.ConnectionId).ToList();
         }
+
         internal void RemoveAllUserConnections(string userId)
         {
             var current = _Context.UserConnections.Where(x => x.UserId.Id == userId);

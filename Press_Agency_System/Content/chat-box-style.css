@@ -1,0 +1,41 @@
+﻿.messages-list {
+    padding: 25px;
+    height: 350px;
+    max-height: 350px;
+    overflow: auto;
+}
+
+.dvmsg {
+    padding: 1.5px;
+}
+
+.dvmsg-from {
+    display: flex;
+    justify-content: flex-start;
+}
+
+    .dvmsg-from .msg {
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+.dvmsg-to {
+    display: flex;
+    justify-content: flex-end;
+}
+
+    .dvmsg-to .msg {
+        background-color: orange;
+        color: black;
+    }
+
+.msg {
+    padding: 8px;
+    width: auto;
+    border-radius: 20px;
+}
+
+
+.user-box:hover {
+    background-color: #F5F5F5;
+}

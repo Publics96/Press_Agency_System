@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
 using Press_Agency_System.Models;
+using System.Linq;
 
 [assembly: OwinStartupAttribute(typeof(Press_Agency_System.Startup))]
 namespace Press_Agency_System
@@ -15,8 +16,6 @@ namespace Press_Agency_System
             ConfigureAuth(app);
             CreationOfDefaultRoles();
             app.MapSignalR();
-            //AddUsers();
-
         }
         public void AddUsers()
         {
@@ -76,6 +75,11 @@ namespace Press_Agency_System
                 user.FirstName = "Mohamed";
                 user.LastName = "Ahmed";
                 user.Email = "mohamed@gmail.com";
+                user.roleType = _db.Roles.FirstOrDefault(x=>x.Name == "Admin");
+                user.PhotoPath = "person1.png";
+                user.Phone = "01006879078";
+                user.activeUser = true;
+                
 
                 var flag = userManager.Create(user, "admin1234");
                 if (flag.Succeeded)

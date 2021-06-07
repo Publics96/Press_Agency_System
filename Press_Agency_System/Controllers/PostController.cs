@@ -155,7 +155,7 @@ namespace Press_Agency_System.Controllers
                 return HttpNotFound();
             }
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            string rolename = userManager.GetRoles(post.UserId).FirstOrDefault();
+            string rolename = userManager.GetRoles(User.Identity.GetUserId()).FirstOrDefault();
             if (rolename == "Editor")
             {
                 if (User.Identity.GetUserId() != post.UserId)
@@ -169,36 +169,37 @@ namespace Press_Agency_System.Controllers
 
         // POST: /Post/Edit/5
 
-        
+
         [Authorize(Roles = "Admin,Editor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Post post, HttpPostedFileBase UploadedImage)
         {
             ViewBag.PostCategories = PostCategories.AllCategories;
+            var oldpost = db.Posts.FirstOrDefault(e => e.Id == post.Id);
             if (ModelState.IsValid)
             {
                 if (UploadedImage != null)
                 {
                     var path = System.IO.Path.Combine(Server.MapPath("~/Content/Posts Images"), UploadedImage.FileName);
                     UploadedImage.SaveAs(path);
-                    post.ImagePath = UploadedImage.FileName;
+                    oldpost.ImagePath = UploadedImage.FileName;
                 }
 
+                oldpost.IsActive = true;
+                oldpost.State = PostState.Waiting;
+                oldpost.PostDate = DateTime.Now;
+                oldpost.PostTitle = post.PostTitle;
+                oldpost.PostBody = post.PostBody;
+                oldpost.PostType = post.PostType;
 
-                post.UserId = User.Identity.GetUserId();
-                post.IsActive = true;
-                post.State = 0;
-                post.State = PostState.Waiting;
-                post.PostDate = DateTime.Now;
-                db.Entry(post).State = EntityState.Modified;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(post);
         }
-
 
         // GET: /Post/Delete/5
         [Authorize(Roles = "Admin,Editor")]

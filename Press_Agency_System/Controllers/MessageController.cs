@@ -29,6 +29,6 @@ namespace Press_Agency_System.Controllers
         {
             return Json(new AppServices().SendMessage(toUserId, message));
         }
-        
+
     }
 }

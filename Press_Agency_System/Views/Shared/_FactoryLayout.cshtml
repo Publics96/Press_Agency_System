@@ -166,13 +166,13 @@
 
                     </li>
                     <li>
-                        @if (HttpContext.Current.Request.Url.AbsolutePath == "Post/Questions")
+                        @if (HttpContext.Current.Request.Url.AbsolutePath == "/Message/Messages")
                         {
-                            <a href="#" class="active">Received Questions <span class="glyphicon glyphicon-question-sign pull-right"></span></a>
+                            <a href="~/Message/Messages" class="active">Received Questions <span class="glyphicon glyphicon-question-sign pull-right"></span></a>
                         }
                         else
                         {
-                            <a href="#">Received Questions <span class="glyphicon glyphicon-question-sign pull-right"></span></a>
+                            <a href="~/Message/Messages">Received Questions <span class="glyphicon glyphicon-question-sign pull-right"></span></a>
                         }
 
                     </li>

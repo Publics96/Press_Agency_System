@@ -220,7 +220,7 @@
             <div class="blog-interaction">
                 <div class="editor-data">
                     <img class="editor-img" src="~/Content/Persons Images/@Html.DisplayFor(model=>model.Post.User.PhotoPath)" width="20px" height="20px" />
-                    <p class="editor-name">Mohamed Ahmed</p>
+                    <p class="editor-name">@Model.Post.User.FirstName @Model.Post.User.LastName</p>
                 </div>
                 <div class="reactions">
                     <i id="likebtn" class="fas fa-thumbs-up"></i>

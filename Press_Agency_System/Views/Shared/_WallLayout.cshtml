@@ -38,13 +38,17 @@
         </div>
     </div>
 
-    <div class="loginpart">
-        @Html.Partial("_hamada")
-        
-    </div>
-    <div class="registerpart">
-       @Html.Partial("_hamadaReg")
-    </div>
+    @if (!Request.IsAuthenticated)
+    {
+        <div class="loginpart">
+            @Html.Partial("_hamada")
+
+        </div>
+        <div class="registerpart">
+            @Html.Partial("_hamadaReg")
+        </div>
+    }
+
 
 
 
@@ -111,7 +115,7 @@
     </footer>
     <!-- Footer -->
 
-  
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
