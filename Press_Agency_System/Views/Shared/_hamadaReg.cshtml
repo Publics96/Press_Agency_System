@@ -9,6 +9,7 @@
         align-items: center;
         text-align: center;
         font-family: 'Poppins', sans-serif;
+        z-index: 5;
     }
 
     .img img {
@@ -22,7 +23,7 @@
         width: 200px;
         border-radius: 100%;
     }
-  
+
 
 
     .Regs-content h2 {
@@ -160,7 +161,7 @@
     .modal {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
-        z-index: 4; /* Sit on top */
+        z-index: 1; /* Sit on top */
         padding-top: 100px; /* Location of the box */
         left: 0;
         top: 0;
@@ -168,7 +169,8 @@
         height: 100%; /* Full height */
         overflow: auto; /* Enable scroll if needed */
         background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        background-color: rgba(0,0,0,0.4);
+        z-index: 5; /* Black w/ opacity */
     }
 
     /* Modal Content */
@@ -177,12 +179,14 @@
         margin: auto;
         padding: 20px;
         border: 1px solid #888;
-        width: 35%;
+        width: 40%;
         border-radius: 65px;
+
     }
-    @@media (min-width: 900px) {
+
+    @@media (max-width: 1000px) {
         .modal-content {
-            max-width: 80%;
+            width: 85%;
         }
     }
 
@@ -199,6 +203,7 @@
             text-decoration: none;
             cursor: pointer;
         }
+
     .center {
         margin: 0;
         position: absolute;
@@ -219,9 +224,9 @@
         font-family: 'poppins', sans-serif;
     }
 
-            p.remember a:hover {
-                color: #fbbb92;
-            }
+    p.remember a:hover {
+        color: #fbbb92;
+    }
 
 
     .signup {
@@ -233,7 +238,7 @@
 
     .go {
         align-items: center;
-        font-size:large;
+        font-size: large;
         display: contents;
     }
 
@@ -323,7 +328,6 @@
     #option-2:checked:checked ~ .option-2 span {
         color: #fff;
     }
-
 </style>
 
 
@@ -332,106 +336,107 @@
         <div class="row">
             <div class="col-md-12">
                 <section id="Regform">
-                    
-                        <form id="Reg_form" method="post">
-                            <!--Begin form-->
-                            @Html.AntiForgeryToken()
-                            <div class="Regs-content">
+                    <!--    <form id="Reg_form" method="post" enctype="multipart/form-data" > -->
+                    @using (Html.BeginForm("SmartRegister", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        @Html.AntiForgeryToken()
+                        <div class="Regs-content">
 
 
-                                <h2 class="title">Welcome</h2>
+                            <h2 class="title">Welcome</h2>
 
 
-                                <img class="lin" id="OpenImgUpload" src='~/Content/Posts Images/UploadImage.jpg' id="uploadImage">
-                                <input type="file" id="file" onchange="loadFile(event)" style="display:none" name="UploadedImage" />
+                            <img class="lin" id="OpenImgUpload" src='~/Content/Posts Images/UploadImage.jpg' id="uploadImage">
+                            <input type="file" id="file" onchange="loadFile(event)" style="display:none" name="UploadedImage" />
 
-                                <div class="row row-border">
-                                    <div class="col-md-6">
-                                        <div class="input-div one">
-                                            <div class="i">
-                                                <i class="fas fa-user"></i>
-                                            </div>
-                                            <div class="div">
-                                                <h5>First Name</h5>
-                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "input", name = "FirstName", id = "FirstName" })
-
-                                            </div>
+                            <div class="row row-border">
+                                <div class="col-md-6">
+                                    <div class="input-div one">
+                                        <div class="i">
+                                            <i class="fas fa-user"></i>
                                         </div>
-                                        @Html.ValidationMessageFor(m => m.FirstName)
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="input-div one">
-                                            <div class="i">
-                                                <i class="fas fa-user"></i>
-                                            </div>
-                                            <div class="div">
-                                                <h5>Last Name</h5>
-                                                @Html.TextBoxFor(m => m.LastName, new { @class = "input", name = "LastName", id = "LastName" })
-                                            </div>
+                                        <div class="div">
+                                            <h5>First Name</h5>
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "input", name = "FirstName", id = "FirstName" })
+
                                         </div>
-                                        @Html.ValidationMessageFor(m => m.LastName)
                                     </div>
+                                    @Html.ValidationMessageFor(m => m.FirstName)
                                 </div>
-
-                                <div class="input-div one">
-                                    <div class="i">
-                                        <i class="fas fa-user"></i>
+                                <div class="col-md-6">
+                                    <div class="input-div one">
+                                        <div class="i">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="div">
+                                            <h5>Last Name</h5>
+                                            @Html.TextBoxFor(m => m.LastName, new { @class = "input", name = "LastName", id = "LastName" })
+                                        </div>
                                     </div>
-                                    <div class="div">
-                                        <h5>Username</h5>
-                                        @Html.TextBoxFor(m => m.UserName, new { @class = "input", name = "UserName", id = "UserName" })
-
-                                    </div>
+                                    @Html.ValidationMessageFor(m => m.LastName)
                                 </div>
-                                @Html.ValidationMessageFor(m => m.UserName)
-                                <div class="input-div one">
-                                    <div class="i">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <div class="div">
-                                        <h5>Email</h5>
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "input", name = "Email", id = "Email" })
+                            </div>
 
-                                    </div>
+                            <div class="input-div one">
+                                <div class="i">
+                                    <i class="fas fa-user"></i>
                                 </div>
-                                @Html.ValidationMessageFor(m => m.Email)
-                                <div class="input-div one">
-                                    <div class="i">
-                                        <i class="fa fa-phone"></i>
-                                    </div>
-                                    <div class="div">
-                                        <h5>Phone</h5>
-                                        @Html.TextBoxFor(m => m.Phone, new { @class = "input", name = "Phone", id = "Phone" })
+                                <div class="div">
+                                    <h5>Username</h5>
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "input", name = "UserName", id = "UserName" })
 
-                                    </div>
                                 </div>
-                                @Html.ValidationMessageFor(m => m.Phone)
-                                <div class="input-div pass">
-                                    <div class="i">
-                                        <i class="fas fa-lock"></i>
-                                    </div>
-                                    <div class="div">
-                                        <h5>Password</h5>
-                                        @Html.PasswordFor(m => m.Password, new { @class = "input", name = "Password", id = "Password" })
-
-                                    </div>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.UserName)
+                            <div class="input-div one">
+                                <div class="i">
+                                    <i class="fas fa-envelope"></i>
                                 </div>
-                                @Html.ValidationMessageFor(m => m.Password)
-                                <div class="input-div pass">
-                                    <div class="i">
-                                        <i class="fas fa-lock"></i>
-                                    </div>
-                                    <div class="div">
-                                        <h5>ConfirmPassword</h5>
-                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input", name = "ConfirmPassword", id = "ConfirmPassword" })
-                                    </div>
+                                <div class="div">
+                                    <h5>Email</h5>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "input", name = "Email", id = "Email" })
+
                                 </div>
-                                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Email)
+                            <div class="input-div one">
+                                <div class="i">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div class="div">
+                                    <h5>Phone</h5>
+                                    @Html.TextBoxFor(m => m.Phone, new { @class = "input", name = "Phone", id = "Phone" })
 
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Phone)
+                            <div class="input-div pass">
+                                <div class="i">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div class="div">
+                                    <h5>Password</h5>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "input", name = "Password", id = "Password" })
 
-                                <div class="wrapper" id="wrapper-1">
-                                    <input type="radio" name="select" id="option" value="Editor" checked>
-                                    <input type="radio" name="select" id="option" value="Viewer">
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Password)
+                            <div class="input-div pass">
+                                <div class="i">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div class="div">
+                                    <h5>ConfirmPassword</h5>
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input", name = "ConfirmPassword", id = "ConfirmPassword" })
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+
+                            
+                                <div class="wrapper">
+                                    <input type="radio" name="Role" id="option-1" value="Editor" checked >
+                                    <input type="radio" name="Role" id="option-2" value="Viewer">
                                     <label for="option-1" class="option option-1">
                                         <div class="dot"></div>
                                         <span>Editor</span>
@@ -441,18 +446,19 @@
                                         <span>Viewer</span>
                                     </label>
                                 </div>
-                                <input type="hidden" name="select" id="radiobutton" />
+                           
+                            @Html.ValidationSummary(true)
+                            <p id="error-field" style="color:red; font-size:14px;"></p>
+                         
 
-                                @Html.ValidationSummary(true)
-                                <p id="error-field" style="color:red; font-size:14px;"></p>
 
-
-                                <input type="submit" value="Regstier" class="btn-regs" id="test" />
-                            </div>
-                        </form><!--end form-->
-                    </section>
-                </div>
+                            <input type="submit" value="Regstier" class="btn-regs" id="test" />
+                        </div>
+                    }
+                    <!--  </form> -->
+                </section>
             </div>
+        </div>
         <div class="signup">If you already has an account, just -> <a href="#a" class="go" onclick="gotolog()"> Sign in</a>.</div>
 
     </div>
@@ -461,32 +467,21 @@
 
 
 
-    <script>
-        
-        document.getElementById("OpenImgUpload").onclick = function () {
-            document.getElementById("file").click();
-        }
-        var loadFile = function (event) {
-            var image = document.getElementById('OpenImgUpload');
-            image.src = URL.createObjectURL(event.target.files[0]);
-        };
-        /*var selectedOption = $("input:radio[name=select]:checked").val()*/
-        alert(document.querySelector('input:radio[name=select]:checked').value);
+<script>
 
-
-
-        $("#option").change(function () {
-            var sel = $(this).val();
-            if (sel == 'single') {
-                $("#radiobutton").val($('#option').val);
-            }
-            if (sel == 'double') {
-                $("#radiobutton").val($('#option').val);
-            }
-        });
-
-
-    </script>
+    document.getElementById("OpenImgUpload").onclick = function () {
+        document.getElementById("file").click();
+    }
+    var loadFile = function (event) {
+        var image = document.getElementById('OpenImgUpload');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    var role = $("input:radio[name=select]:checked").val()
+   function gotolog(){
+        modal.style.display = "none";
+        modall.style.display="block";
+    }
+</script>
 
 
 

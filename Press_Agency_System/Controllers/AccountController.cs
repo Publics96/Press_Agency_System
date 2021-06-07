@@ -14,7 +14,7 @@ namespace Press_Agency_System.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        public ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -74,13 +74,15 @@ namespace Press_Agency_System.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> SmartRegister(ApplicationUser model, HttpPostedFileBase UploadedImage, String Role)   
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SmartRegister(RegisterViewModel model, HttpPostedFileBase UploadedImage, String Role)   
         {
-            Role = "Editor";
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+           
             var check_user = await UserManager.FindByNameAsync(model.UserName);
             if (check_user == null)
             {
+                string role = Role;
                 var user = new ApplicationUser();
                 if (UploadedImage != null)
                 {
@@ -92,45 +94,47 @@ namespace Press_Agency_System.Controllers
                 {
                     user.PhotoPath = "avatar.svg";
                 }
+
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.UserName = model.UserName;
                 user.Email = model.Email;
                 user.Phone = model.Phone;
                 user.activeUser = true;
-                user.roleType = db.Roles.FirstOrDefault(x => x.Name == Role);
+                user.roleType = db.Roles.FirstOrDefault(x => x.Name == role);
+                
+                user.PasswordHash = model.Password;
 
 
+                var result = await UserManager.CreateAsync(user, model.Password);
 
-                var result = await UserManager.CreateAsync(user, model.PasswordHash);
-
-
+            
 
                 if (result.Succeeded)
                 {
-                    if (Role == "Editor")
+                    if (role == "Editor")
                     {
                         UserManager.AddToRole(user.Id, Roles.Editor);
                         user.roleType.Name = "Editor";
                     }
-                    else if (Role == "Viewer")
+                    else if (role == "Viewer")
                     {
                         UserManager.AddToRole(user.Id, Roles.Viewer);
                         user.roleType.Name = "Viewer";
                     }
                     await SignInAsync(user, isPersistent: false);
-                    return Content("true");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    return Content("false1");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else
 
 
                 // If we got this far, something failed, redisplay form
-                return Content("false");
+                return RedirectToAction("Index", "Home");
         }
 
         //
